@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <!-- Author: W3layouts
+    Author URL: http://w3layouts.com
+    License: Creative Commons Attribution 3.0 Unported
+    License URL: http://creativecommons.org/licenses/by/3.0/ -->
+    <head>
+        <title>Kuvapalvelu</title>
+        <link href="../../css/bootstrap.css" th:href="@{/css/bootstrap.css}" rel="stylesheet" type="text/css" />
+        <script src="../../js/jquery.min.js" th:src="@{/js/jquery.min.js}"></script>
+        <link href="../../css/style.css" th:href="@{/css/style.css}" rel="stylesheet" type="text/css" />
+        <link rel="stylesheet" href="../../fonts/css/font-awesome.min.css" th:href="@{/fonts/css/font-awesome.min.css}" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />       
+        <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+    </head>
+    <body>
+        <!-- container -->
+        <div class="container">
+            <div class="top-header">
+                <!-- script-for-sidepanle-nav -->
+                <link type="text/css" rel="stylesheet" href="../../css/jquery.mmenu.all.css" th:href="@{/css/jquery.mmenu.all.css}" />
+                <script type="text/javascript" src="../../js/jquery.mmenu.js" th:src="@{/js/jquery.mmenu.js}"></script>
+                <script type="text/javascript">
+                    //	The menu on the left
+                    $(function () {
+                        $('nav#menu-left').mmenu();
+                    });
+                </script>
+                <!-- script-for-sidepanle-nav -->
+
+
+                <!-- usernotifications -->
+
+                <!-- usernotifications -->
+            </div>
+            <div class="clearfix"> </div>
+            <!-- content -->
+            <div class="content">
+                <div class="3-cols">
+                    <div class="col-1 col-md-2">
+
+                        <!-- sign-in-box -->
+                        <div class="sign-in-box">
+                            <h2>Sign in</h2>
+                            <form method="POST" th:action="@{/authenticate}">
+                                <div class="text-boxs">
+                                    <span class="text-box">
+                                        <label class="s-user"></label>
+                                        <input type="text" name="username" placeholder="Username" />
+                                        <div class="clearfix"></div>
+                                    </span>
+                                    <span class="text-box">
+                                        <label class="s-lock"> </label>
+                                        <input type="text" name="password" placeholder="password" /> 
+                                        <div class="clearfix"> </div>
+                                    </span>
+                                </div>
+                                <input type="submit" value="sign in" />
+
+                                <p class="not-member">
+                                    <a class="member-sign" th:href="@{/signup}"> Not a member?</a> <a class="member-signup" th:href="@{/signup}">Sign Up Now <span> </span></a>
+                                </p>
+                            </form>
+                        </div>
+                        <hr/>
+                        
+                        <!-- sign-in-box -->
+
+
+
+                        <!-- social-tags -->
+                        <!-- End-col-1 -->
+                        <!-- col-2 -->
+
+                        <!-- chat-box -->
+
+
+                    </div><!-- End-col-2 -->
+                    <!-- col-3 -->
+                    <div class="col-md-5 col-2">
+                        <!-- video-player -->
+                        <!-- video player -->
+
+                        <!-- col-3-grid-2 -->
+                        
+                        <!-- col-3-grid-2 -->
+                        <!-- col-3-grid-3 -->
+
+                        <!-- col-3-grid-3 -->
+                        <!-- col-3-grid-4 -->
+                        <div class="col-2-grid-4">
+                            <div th:if="${images != null}">
+                                <span sec:authorize="isAuthenticated()"><a href="images" data-toggle="modal" data-target="#submitAnimalPicModal"><i class="fa fa-plus"></i> Add a new image</a></span>
+                                <div th:each="image: ${images}">
+                                    <h2><span th:text="${image.title}">id</span></h2>
+                                    <p><span th:if="${image.description != null}" th:text="${image.description}">unknown</span></p>
+
+                                    <a th:href="@{/images/} + ${image.id}"><img th:attr="src=@{/images/} + ${image.id} + @{/src}" width="600" /></a>
+                                    <!--img th:if="${image.thumbnail != null}" th:src="@{/images/thumbnails/{id}(id=${image.thumbnail.id})}"/ !-->
+                                </div>
+                            </div>
+                            <div class="container-fluid" th:if="${#lists.isEmpty(images)}">
+                                <center>
+                                    <h1 class="no-data">No pictures found</h1>
+                                </center>
+                            </div>
+                        </div>
+                        <!-- col-3-grid-4 -->
+                        <!-- col-4-grid-2 -->
+                        
+                        <!-- col-4-grid-2 -->
+                        <!-- copy-right -->
+                        <div class="copy-right">
+                            <p>Template by <a href="http://w3layouts.com/">w3layouts</a></p>
+                        </div>
+                        <!-- copy-right -->
+                    </div>
+                    <div class="col-md-5 col-3">
+                        <div class="col-3-grid-2">
+                            <!-- simple-dropdow -->
+                            
+                            <div th:if="${images2 != null}">
+                                <div th:each="image: ${images2}">
+                                    <h2><span th:text="${image.title}">id</span></h2>
+                                    <p><span th:if="${image.description != null}" th:text="${image.description}">unknown</span></p>
+                                    <a th:href="@{/images/} + ${image.id}"><img th:attr="src=@{/images/} + ${image.id} + @{/src}" width="600" /></a>
+                                    <!--img th:if="${image.thumbnail != null}" th:src="@{/images/thumbnails/{id}(id=${image.thumbnail.id})}"/ !-->
+                                </div>
+                            </div>
+                            <!-- simple-dropdow -->
+
+                        </div>
+                    </div>
+                    <!-- col-3 -->
+                    <div class="clearfix"> </div>
+                </div>
+            </div>
+            <!-- content -->
+
+        </div>
+        <!-- container -->
+
+        <script th:src="@{/js/likey.js}"></script>
+    </body>
+</html>

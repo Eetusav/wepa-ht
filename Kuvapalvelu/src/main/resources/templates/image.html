@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>cyan Flat ui kit Website Template | Home :: w3layouts</title>
+        <link href="../../css/bootstrap.css" th:href="@{/css/bootstrap.css}" rel="stylesheet" type="text/css" />
+        <script src="../../js/jquery.min.js" th:src="@{/js/jquery.min.js}"></script>
+        <link href="../../css/style.css" th:href="@{/css/style.css}" rel="stylesheet" type="text/css" />
+        <link rel="stylesheet" href="../../fonts/css/font-awesome.min.css" th:href="@{/fonts/css/font-awesome.min.css}" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />       
+        <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+    </head>
+    <body>
+        <h2><span th:text="${image.title}">id</span></h2>
+        <p><span th:if="${image.description != null}" th:text="${image.description}">unknown</span></p>
+
+        <a th:href="@{/images/} + ${image.id}"><img th:attr="src=@{/images/} + ${image.id} + @{/src}" /></a>
+    </body>
+</html>
