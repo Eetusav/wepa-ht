@@ -5,14 +5,19 @@
  */
 package wad.domain;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Lob;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.AbstractPersistable;
+import wad.service.UserService;
 
 /**
  *
@@ -30,6 +35,9 @@ public class Image extends AbstractPersistable<Long> {
     private byte[] image;
     @ManyToOne(fetch = FetchType.EAGER)
     private User author;
+    @ManyToMany
+    private List<User> likes = new ArrayList<>();
+
 
     /*
     LISÄÄ TÄHÄN VIELÄ TYKKÄYKSET JA KOMMENTIT
@@ -85,6 +93,14 @@ public class Image extends AbstractPersistable<Long> {
 
     public void setAuthor(User author) {
         this.author = author;
+    }
+
+    public List<User> getLikes() {
+        return likes;
+    }
+
+    public void setLikes(List<User> likes) {
+        this.likes = likes;
     }
 
 }

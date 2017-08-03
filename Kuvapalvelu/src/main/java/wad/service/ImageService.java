@@ -67,10 +67,31 @@ public class ImageService {
         image.setDescription(description);
         image.setContentType(file.getContentType());
         image.setImage(file.getBytes());
+        image.setAuthor(userService.getAuthenticatedUser());
         return imageRepository.save(image);
     }
     public void delete(Long id){
         imageRepository.delete(id);
+    }
+    
+    @Transactional
+    public int likeImage(Long id){
+        Image image = imageRepository.findOne(id);
+        User user = userService.getAuthenticatedUser();
+        if (image == null){
+            return 0;
+        }
+        if (user == null){
+            return image.getLikes().size();
+        }
+        if (!image.getLikes().contains(user)){
+            image.getLikes().add(user);
+            user.getLikedImages().add(image);
+        } else {
+            image.getLikes().remove(user);
+            user.getLikedImages().remove(image);
+        }
+        return image.getLikes().size();
     }
     
 }

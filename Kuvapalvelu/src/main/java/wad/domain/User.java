@@ -14,6 +14,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.security.crypto.bcrypt.BCrypt;
@@ -41,6 +42,9 @@ public class User implements Serializable {
     private String salt;
     @OneToMany(mappedBy = "author", fetch = FetchType.LAZY)
     private List<Image> images = new ArrayList<>();
+    
+    @ManyToMany(fetch = FetchType.LAZY)
+    private List<Image> likedPictures = new ArrayList<>();
     
     @NotBlank
     public String slogan;
@@ -97,6 +101,13 @@ public class User implements Serializable {
     }
     public void setImages(List<Image> lista){
         this.images = lista;
+    }
+        public List<Image> getLikedImages() {
+        return likedPictures;
+    }
+
+    public void setLikedImages(List<Image> likedPictures) {
+        this.likedPictures = likedPictures;
     }
     
 

@@ -29,6 +29,7 @@ import wad.service.UserService;
 import helpers.CurrentUserProvider;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  *
@@ -105,11 +106,12 @@ public class ImageController {
         
         imageService.add(imageFile.getFile(), imageFile.getTitle(), user, imageFile.getDescription());
 
-        return "redirect:/images";
+        return "redirect:/";
     }
 
     @ModelAttribute("imageFile")
     private ImageFile getImageFile() {
         return new ImageFile();
     }
+
 }
