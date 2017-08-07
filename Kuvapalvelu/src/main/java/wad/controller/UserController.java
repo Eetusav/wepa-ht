@@ -20,10 +20,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import wad.domain.Comment;
 import wad.domain.Image;
 import wad.domain.User;
+import wad.repository.CommentRepository;
 import wad.repository.ImageRepository;
 import wad.repository.UserRepository;
+import wad.service.CommentService;
 import wad.service.ImageService;
 import wad.service.UserService;
 
@@ -39,6 +42,10 @@ public class UserController {
     private ImageRepository imageRepository;
     @Autowired
     private ImageService imageService;
+    @Autowired
+    private CommentService commentService;
+    @Autowired
+    private CommentRepository commentRepository;
 
     @RequestMapping(method = RequestMethod.POST)
     public String create(@ModelAttribute User user) {
@@ -56,6 +63,9 @@ public class UserController {
         model.addAttribute("self", user);
         List<Image> imagesFromUser = imageRepository.findAllByAuthor(user);
         model.addAttribute("images", imagesFromUser);
+        // LISÄÄ ALLE SITEN ETTÄ TULOSTETAAN VAIN KUNKIN KUVAN KOHDALLA VAIN TIETYT KOMMENTIT
+        List<Comment> commentsOnImage = commentRepository.findAll();
+        model.addAttribute("comments", commentsOnImage);
         return "user";
     }
 

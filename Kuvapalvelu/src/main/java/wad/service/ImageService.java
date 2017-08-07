@@ -42,12 +42,12 @@ public class ImageService {
     }
 
     public List<Image> getLatest(int max) {
-        Pageable page = new PageRequest(0, max, Direction.DESC, "dateAdded");
+        Pageable page = new PageRequest(0, max, Direction.DESC, "title");
         return imageRepository.findAll(page).getContent();
     }
-
+    // WAS dateAdded
     public List<Image> getLatest(int min, int max) {
-        Pageable page = new PageRequest(min, max, Direction.DESC, "dateAdded");
+        Pageable page = new PageRequest(min, max, Direction.DESC, "title");
         return imageRepository.findAll(page).getContent();
     }
 
@@ -86,10 +86,10 @@ public class ImageService {
         }
         if (!image.getLikes().contains(user)){
             image.getLikes().add(user);
-            user.getLikedImages().add(image);
+//            user.getLikedImages().add(image);
         } else {
             image.getLikes().remove(user);
-            user.getLikedImages().remove(image);
+//            user.getLikedImages().remove(image);
         }
         return image.getLikes().size();
     }

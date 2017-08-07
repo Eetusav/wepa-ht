@@ -31,7 +31,7 @@ public class User implements Serializable {
     private Long id;
     
     @NotBlank
-    public String name;
+    private String name;
 
     @NotBlank
     @Column(unique = true)
@@ -43,12 +43,21 @@ public class User implements Serializable {
     @OneToMany(mappedBy = "author", fetch = FetchType.LAZY)
     private List<Image> images = new ArrayList<>();
     
-    @ManyToMany(fetch = FetchType.LAZY)
-    private List<Image> likedPictures = new ArrayList<>();
+//    @ManyToMany(fetch = FetchType.LAZY)
+//    private List<Image> likedPictures = new ArrayList<>();
     
     @NotBlank
-    public String slogan;
+    private String slogan;
     
+    @OneToMany(mappedBy = "name", fetch = FetchType.LAZY)
+    private List<Role> roles = new ArrayList<>();
+    
+    public List<Role> getRoles(){
+        return this.roles;
+    }
+    public void setRoles(List<Role> roles){
+        this.roles = roles;
+    }
     
     public String getSlogan(){
         return this.slogan;
@@ -102,13 +111,13 @@ public class User implements Serializable {
     public void setImages(List<Image> lista){
         this.images = lista;
     }
-        public List<Image> getLikedImages() {
-        return likedPictures;
-    }
-
-    public void setLikedImages(List<Image> likedPictures) {
-        this.likedPictures = likedPictures;
-    }
+//        public List<Image> getLikedImages() {
+//        return likedPictures;
+//    }
+//
+//    public void setLikedImages(List<Image> likedPictures) {
+//        this.likedPictures = likedPictures;
+//    }
     
 
 }

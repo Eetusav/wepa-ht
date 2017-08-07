@@ -13,6 +13,7 @@ import javax.persistence.FetchType;
 import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,7 +38,8 @@ public class Image extends AbstractPersistable<Long> {
     private User author;
     @ManyToMany
     private List<User> likes = new ArrayList<>();
-
+    @OneToMany(mappedBy = "image", fetch = FetchType.EAGER)
+    private List<Comment> comments = new ArrayList<>();
 
     /*
     LISÄÄ TÄHÄN VIELÄ TYKKÄYKSET JA KOMMENTIT
@@ -101,6 +103,14 @@ public class Image extends AbstractPersistable<Long> {
 
     public void setLikes(List<User> likes) {
         this.likes = likes;
+    }
+
+    public List<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
     }
 
 }

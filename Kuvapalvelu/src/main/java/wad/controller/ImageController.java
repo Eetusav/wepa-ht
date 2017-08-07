@@ -27,9 +27,14 @@ import wad.repository.ImageRepository;
 import wad.service.ImageService;
 import wad.service.UserService;
 import helpers.CurrentUserProvider;
+import java.util.ArrayList;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import wad.domain.Comment;
+import wad.service.CommentService;
+import wad.domain.Role;
 
 /**
  *
@@ -45,6 +50,8 @@ public class ImageController {
     private ImageService imageService;
     @Autowired
     private ImageRepository imageRepository;
+    @Autowired
+    private CommentService commentService;
 //    @Autowired
 //    private CurrentUserProvider currentUserProvider;
 
@@ -102,11 +109,47 @@ public class ImageController {
 //        if (authentication != null && authentication.isAuthenticated()) {
 //            user = (User) authentication.getPrincipal();
 //        }
-        
-        
+
+        // ADD ATTRIBUTE FOR AUTHOR THAT HE IS THE AUTHOR OF THIS IMAGE
         imageService.add(imageFile.getFile(), imageFile.getTitle(), user, imageFile.getDescription());
 
         return "redirect:/";
+    }
+
+    
+    //TULISIKO SIJOITTAA OMAAN CONTORLLERIIN
+    @PreAuthorize("authenticated")
+    @RequestMapping(value = "/{id}/comment", method = RequestMethod.POST)
+    public String postComment(@PathVariable Long id, @RequestParam String comment, RedirectAttributes redirectAttributes) {
+        try {
+            commentService.addComment(id, comment);
+            redirectAttributes.addFlashAttribute("message", "Comment added. Great success!");
+        } catch (IllegalArgumentException e) {
+            redirectAttributes.addFlashAttribute("error", e.getMessage());
+        }
+        Long imageById = imageRepository.getOne(id).getAuthor().getId();
+        redirectAttributes.addAttribute("id", id);
+        return "redirect:/users/" + imageById;
+    }
+
+    
+    
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    public String deleteImage(@PathVariable Long id, RedirectAttributes redirectAttributes) {
+        Image image = imageRepository.findOne(id);
+        User author = image.getAuthor();
+        User user = userService.getAuthenticatedUser();
+        Role role = new Role("ADMIN");
+        role.setName("ADMIN");
+        if (user.getRoles().contains(role) || user == author) {
+            commentService.deleteAllCommentsOnImage(id);
+            image.setComments(new ArrayList<>());
+            image.setLikes(new ArrayList<>());
+            imageRepository.delete(image);           
+            return "redirect:/";
+        }
+
+        return "redirect:/images/{id}";
     }
 
     @ModelAttribute("imageFile")

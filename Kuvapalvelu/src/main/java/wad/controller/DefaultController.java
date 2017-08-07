@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import javax.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -18,10 +19,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import wad.domain.Follow;
 import wad.domain.Image;
 import wad.domain.User;
+import wad.repository.FollowRepository;
 import wad.repository.ImageRepository;
 import wad.repository.UserRepository;
+import wad.service.FollowService;
 import wad.service.ImageService;
 import wad.service.UserService;
 
@@ -41,6 +45,11 @@ public class DefaultController {
     private UserRepository userRepository;
     @Autowired
     private ImageService imageService;
+    @Autowired
+    private FollowRepository followRepository;
+    @Autowired
+    private FollowService followService;
+    private static final int IMAGES_PER_PAGE = 2;
 
 //    @RequestMapping(value = "login", method = RequestMethod.GET)
 //    public String viewLogin(Model model) {
@@ -53,32 +62,40 @@ public class DefaultController {
 //    }
     @RequestMapping(method = RequestMethod.GET)
     public String view(Model model) {
-        PageRequest pr = new PageRequest(0, 10, Sort.Direction.DESC, "username");
-
+//        PageRequest pr = new PageRequest(0, 10, Sort.Direction.DESC, "dateAdded");
         User self = userService.getAuthenticatedUser();
+
+        List<User> followedUsers = followService.getAllFollowedUsers();
+        model.addAttribute("following", followedUsers);
+        List<User> userList = userRepository.findAll();
+        userList.remove(self);
+        followedUsers.forEach((user) -> {
+            userList.remove(user);
+        });
+        model.addAttribute("users", userList);
         model.addAttribute("self", self);
-        if (imageRepository.findAll().size() > 0) {
-            List<Image> images = imageRepository.findAll();
-            List<Image> images2 = imageService.getLatest(images.size());
-            List<User> users = userRepository.findAll();
-            users.remove(self);
-            if (!users.isEmpty()) {
-                model.addAttribute("users", users);
-            }
-            model.addAttribute("images2", images2.subList(0, images.size() / 2));
-            model.addAttribute("images", images2.subList(images.size() / 2, images.size()));
 
-            return "index";
+        List<Image> images = imageService.getLatest(IMAGES_PER_PAGE);
+        if (images.size() > IMAGES_PER_PAGE / 2) {
+            List<Image> images1 = images.subList(0, IMAGES_PER_PAGE / 2);
+            List<Image> images2 = images.subList(IMAGES_PER_PAGE / 2, images.size());
+            model.addAttribute("images", images1);
+            model.addAttribute("images2", images2);
         } else {
-            model.addAttribute("images", imageRepository.findAll());
-
-            List<User> userList = new ArrayList<>(userRepository.findAll());
-            userList.remove(self);
-            if (!userList.isEmpty()) {
-                model.addAttribute("users", userList);
-            }
-            return "index";
+            model.addAttribute("images", images);
         }
+//        if (imageRepository.findAll().size() > 0) {
+//            List<Image> images = imageRepository.findAll();
+//            List<Image> images2 = imageService.getLatest(images.size());
+//
+//            model.addAttribute("images2", images2.subList(0, images.size() / 2));
+//            model.addAttribute("images", images2.subList(images.size() / 2, images.size()));
+//
+//            return "index";
+//        } else {
+//            model.addAttribute("images", imageRepository.findAll());
+//            return "index";
+//        }
 
 //        PageRequest pr = new PageRequest(0, 10, Sort.Direction.DESC, "username");
 // 
@@ -100,25 +117,44 @@ public class DefaultController {
 //        model.addAttribute("images2", images2.subList(0, images.size() / 2));
 //        model.addAttribute("images", images2.subList(images.size() / 2, images.size()));
 //
-//        return "index";
+        if (imageRepository.findAll().size() > IMAGES_PER_PAGE) {
+            model.addAttribute("nextPage", 1);
+        }
+        return "index";
     }
 
-    @PreAuthorize("authenticated")
-    @RequestMapping(value = "/images/{id}/like", method = RequestMethod.GET)
-    public String likeImage(@PathVariable Long id, Model model) {
-        imageService.likeImage(id);
-        Long userId = imageRepository.findOne(id).getAuthor().getId();
-//        model.addAttribute("userId", userId);
-        return "redirect:/";
-    }
+    @RequestMapping("{page}")
+    public String loadMorePages(@PathVariable int page, Model model) {
+        //SISÄLTÄÄ SIVUOSIOT
+        User self = userService.getAuthenticatedUser();
 
-    @PreAuthorize("authenticated")
-    @RequestMapping(value = "users/images/{id}/like", method = RequestMethod.GET)
-    public String likeImageOnUserPage(@PathVariable Long id, Model model) {
-        imageService.likeImage(id);
-        Long userId = imageRepository.findOne(id).getAuthor().getId();
-//        model.addAttribute("userId", userId);
-        return "redirect:/users/"+userId;
+        List<User> followedUsers = followService.getAllFollowedUsers();
+        model.addAttribute("following", followedUsers);
+        List<User> userList = userRepository.findAll();
+        userList.remove(self);
+        followedUsers.forEach((user) -> {
+            userList.remove(user);
+        });
+        model.addAttribute("users", userList);
+        model.addAttribute("self", self);
+        //
+
+        List<Image> images = imageService.getLatest((page * IMAGES_PER_PAGE) - IMAGES_PER_PAGE, page * IMAGES_PER_PAGE);
+//        List<Image> images = imageRepository.findAll();
+//        model.addAttribute("images", images);
+        if (images.size() > IMAGES_PER_PAGE / 2) {
+            List<Image> images1 = images.subList(0, IMAGES_PER_PAGE / 2);
+            List<Image> images2 = images.subList(IMAGES_PER_PAGE / 2, images.size());
+            model.addAttribute("images", images1);
+            model.addAttribute("images2", images2);
+        } else {
+            model.addAttribute("images", images);
+        }
+        if (imageRepository.findAll().size() > page * IMAGES_PER_PAGE) {
+            model.addAttribute("nextPage", page + 1);
+        }
+
+        return "index";
     }
 
 }

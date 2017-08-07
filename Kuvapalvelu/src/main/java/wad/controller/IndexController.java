@@ -38,21 +38,21 @@ public class IndexController {
     @Autowired
     UserService userService;
     
-
-    @RequestMapping(method = RequestMethod.GET)
-    public String index(Model model) {
-        return "redirect:/";
-//        List<Image> images = imageRepository.findAll();
-//        List<Image> images2 = imageService.getLatest(images.size());       
-//        List<User> users = userRepository.findAll();
-//        User self = userService.getAuthenticatedUser();
-//        
-//        
-//        model.addAttribute("users", users);
-//        model.addAttribute("images2", images2.subList(0, images.size() / 2));
-//        model.addAttribute("images", images2.subList(images.size() / 2, images.size()));
 //
-//        return "index";
-    }
+//    @RequestMapping(method = RequestMethod.GET)
+//    public String index(Model model) {
+//        return "redirect:/";
+////        List<Image> images = imageRepository.findAll();
+////        List<Image> images2 = imageService.getLatest(images.size());       
+////        List<User> users = userRepository.findAll();
+////        User self = userService.getAuthenticatedUser();
+////        
+////        
+////        model.addAttribute("users", users);
+////        model.addAttribute("images2", images2.subList(0, images.size() / 2));
+////        model.addAttribute("images", images2.subList(images.size() / 2, images.size()));
+////
+////        return "index";
+//    }
 
 }

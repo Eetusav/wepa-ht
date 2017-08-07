@@ -17,7 +17,8 @@ and open the template in the editor.
     <body>
         <h2><span th:text="${image.title}">id</span></h2>
         <p><span th:if="${image.description != null}" th:text="${image.description}">unknown</span></p>
-        <p><span>Author: </span><span th:if="${image.author != null}" th:text="${image.author.username}"></span></p>
+        <p><span>Author: </span><span th:if="${image.author != null}" th:text="${image.author.name}"></span></p>
+        <td><form th:method="DELETE" th:action=" ${image.id} "><button type="submit" class="btn btn-danger">Delete</button> </form></td>
 
         <a th:href="@{/images/} + ${image.id}"><img th:attr="src=@{/images/} + ${image.id} + @{/src}" /></a>
     </body>

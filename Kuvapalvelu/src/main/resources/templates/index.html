@@ -51,17 +51,32 @@
                             <div class="user-profile1 text-center">
                                 <a th:href="@{/users/} + ${user.id}"><h3 th:text="${user.name}" /></a>
                                 <p th:text="${user.slogan}">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec dapibus dui id libero auctor cursus. </p>
-                                
+
                             </div>
                             <hr/>
                         </div>
                         <!-- Profile-->
+                        <!-- FOLLOWING -->
+                        <h3> Following: </h3>
+                        <div th:each="user : ${following}">
+                            <div class="user-profile1 text-center">
+                                <a th:href="@{/users/} + ${user.id}"><h3 th:text="${user.name}" /></a>
+                                <p th:text="${user.slogan}">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec dapibus dui id libero auctor cursus. </p> 
+                            </div>
+                            <hr/>
+                        </div>
+                        <!-- END FOLLOWING -->
                         <!-- Userlist -->
                         <h3>Other users:</h3>
                         <div th:each="user : ${users}">
                             <div class="user-profile1 text-center">
                                 <a th:href="@{/users/} + ${user.id}"><h3 th:text="${user.name}" /></a>
                                 <p th:text="${user.slogan}">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec dapibus dui id libero auctor cursus. </p> 
+                                <form th:method="POST" th:action=" @{/follow}  ">
+                                    <input type="hidden" name="userId" th:value="${user.id}"/>
+                                    <input type="submit" class="btn btn-primary input-block" value="Follow"></input>
+
+                                </form>
                             </div>
                             <hr/>
                         </div>
@@ -123,13 +138,13 @@
                                 <div th:each="image: ${images}">
                                     <h2><span th:text="${image.title}">id</span></h2>
                                     <p><span th:if="${image.description != null}" th:text="${image.description}">unknown</span></p>
-                                    <p><span>Author: </span><span th:if="${image.author != null}" th:text="${image.author.username}"></span></p>
+                                    <p><span>Author: </span><span th:if="${image.author != null}" th:text="${image.author.name}"></span></p>
                                     <!-- LIKE IMAGE -->
                                     <p><a href="#" th:id="${image.id}" th:attr="href=@{images/} + ${image.id} + @{/like}">Likes: (<span th:text="${#lists.size(image.likes)}">100</span>) </a></p>
                                     <!-- LIKE IMAGE -->
                                     <a th:href="@{/images/} + ${image.id}"><img th:attr="src=@{/images/} + ${image.id} + @{/src}" width="600" /></a>
-                                    
-                                    
+
+
                                     <!--img th:if="${image.thumbnail != null}" th:src="@{/images/thumbnails/{id}(id=${image.thumbnail.id})}"/ !-->
                                 </div>
                             </div>
@@ -157,13 +172,13 @@
                                 <div th:each="image: ${images2}">
                                     <h2><span th:text="${image.title}">id</span></h2>
                                     <p><span th:if="${image.description != null}" th:text="${image.description}">unknown</span></p>
-                                    <p><span>Author: </span><span th:if="${image.author != null}" th:text="${image.author.username}"></span></p>
+                                    <p><span>Author: </span><span th:if="${image.author != null}" th:text="${image.author.name}"></span></p>
                                     <!-- LIKE IMAGE -->
                                     <p><a href="#" th:id="${image.id}" th:attr="href=@{images/} + ${image.id} + @{/like}">Likes: (<span th:text="${#lists.size(image.likes)}">100</span>) </a></p>
                                     <!-- LIKE IMAGE -->
                                     <a th:href="@{/images/} + ${image.id}"><img th:attr="src=@{/images/} + ${image.id} + @{/src}" width="600" /></a>
-                                    
-                                    
+
+
                                     <!--img th:if="${image.thumbnail != null}" th:src="@{/images/thumbnails/{id}(id=${image.thumbnail.id})}"/ !-->
                                 </div>
                             </div>
@@ -175,11 +190,26 @@
                     <div class="clearfix"> </div>
                 </div>
             </div>
+            <div class="navigation" th:if="${nextPage != null}">
+                <a href="/2" th:ref="@{/} + ${nextPage}">Load more</a>
+            </div>
             <!-- content -->
 
         </div>
         <!-- container -->
-
-        <script th:src="@{/js/likey.js}"></script>
+        
+	<script>
+		$(document).ready(function() {
+			$('.infinite-scroll').infinitescroll({
+          // other options
+          dataType: 'html',
+          appendCallback: false,
+          nextSelector: "div.navigation a:first",
+          navSelector: "div.navigation",
+          itemSelector: ".infinite-item",
+      });
+		});
+	</script>
+        <!--script th:src="@{/js/likey.js}"></script-->
     </body>
 </html>
