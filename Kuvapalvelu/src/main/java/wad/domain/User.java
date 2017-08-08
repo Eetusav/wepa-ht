@@ -8,6 +8,7 @@ package wad.domain;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -111,6 +112,7 @@ public class User implements Serializable {
     public void setImages(List<Image> lista){
         this.images = lista;
     }
+
 //        public List<Image> getLikedImages() {
 //        return likedPictures;
 //    }

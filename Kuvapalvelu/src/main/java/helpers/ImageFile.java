@@ -5,6 +5,7 @@
  */
 package helpers;
 
+import java.io.IOException;
 import javax.validation.constraints.AssertFalse;
 import javax.validation.constraints.AssertTrue;
 
@@ -51,9 +52,10 @@ public class ImageFile {
         return file.isEmpty();
     }
 
-    @AssertFalse(message = "File size must be less than 5MB")
-    public boolean isOversized() {
-        return file.getSize() > (5 * 1024 * 1024);
+    @AssertFalse(message = "File size must be less than 1MB")
+    public boolean isOversized() throws IOException {
+        return file.getSize() >=  1024*1024;
+        
     }
 
     @AssertTrue(message = "Only image files allowed")

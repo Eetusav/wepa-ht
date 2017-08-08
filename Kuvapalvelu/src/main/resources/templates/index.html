@@ -84,6 +84,7 @@
 
 
                         <!-- sign-in-box -->
+                        <!--
                         <div class="sign-in-box">
                             <h2>Sign in</h2>
                             <form method="POST" th:action="@{/authenticate}">
@@ -105,7 +106,7 @@
                                     <a class="member-sign" th:href="@{/signup}"> Not a member?</a> <a class="member-signup" th:href="@{/signup}">Sign Up Now <span> </span></a>
                                 </p>
                             </form>
-                        </div>
+                        </div> -->
                         <hr/>
 
                         <!-- sign-in-box -->
@@ -183,33 +184,35 @@
                                 </div>
                             </div>
                             <!-- IMAGE STREAM TWO -->
-
+                            <!-- NEXT PAGE PAGING -->
+                            <div class="navigation" th:if="${nextPage != null}">
+                                <a href="1" th:href="@{/} + ${nextPage}"> <h3 >Load more</h3></a>
+                            </div>
+                            <!-- NEXT PAGE, PAGING -->
                         </div>
                     </div>
                     <!-- col-3 -->
                     <div class="clearfix"> </div>
                 </div>
             </div>
-            <div class="navigation" th:if="${nextPage != null}">
-                <a href="/2" th:ref="@{/} + ${nextPage}">Load more</a>
-            </div>
+
             <!-- content -->
 
         </div>
         <!-- container -->
-        
-	<script>
-		$(document).ready(function() {
-			$('.infinite-scroll').infinitescroll({
-          // other options
-          dataType: 'html',
-          appendCallback: false,
-          nextSelector: "div.navigation a:first",
-          navSelector: "div.navigation",
-          itemSelector: ".infinite-item",
-      });
-		});
-	</script>
+
+        <script>
+            $(document).ready(function () {
+                $('.infinite-scroll').infinitescroll({
+                    // other options
+                    dataType: 'html',
+                    appendCallback: false,
+                    nextSelector: "div.navigation a:first",
+                    navSelector: "div.navigation",
+                    itemSelector: ".infinite-item",
+                });
+            });
+        </script>
         <!--script th:src="@{/js/likey.js}"></script-->
     </body>
 </html>

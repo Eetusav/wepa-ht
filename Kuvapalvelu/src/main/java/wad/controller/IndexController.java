@@ -39,9 +39,9 @@ public class IndexController {
     UserService userService;
     
 //
-//    @RequestMapping(method = RequestMethod.GET)
-//    public String index(Model model) {
-//        return "redirect:/";
+    @RequestMapping(method = RequestMethod.GET)
+    public String index(Model model) {
+        return "redirect:/";
 ////        List<Image> images = imageRepository.findAll();
 ////        List<Image> images2 = imageService.getLatest(images.size());       
 ////        List<User> users = userRepository.findAll();
@@ -53,6 +53,6 @@ public class IndexController {
 ////        model.addAttribute("images", images2.subList(images.size() / 2, images.size()));
 ////
 ////        return "index";
-//    }
+    }
 
 }

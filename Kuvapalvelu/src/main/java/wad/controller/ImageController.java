@@ -99,10 +99,14 @@ public class ImageController {
 
     @PreAuthorize("authenticated")
     @RequestMapping(method = RequestMethod.POST)
-    public String addNewImage(@Valid @ModelAttribute ImageFile imageFile, BindingResult bindingResult, RedirectAttributes redirectAttributes) throws Exception {
+    public String addNewImage(@ModelAttribute ImageFile imageFile, BindingResult bindingResult, RedirectAttributes redirectAttributes) throws Exception {
+        if (imageFile.isOversized()){
+            return "redirect:/images";
+        }
         if (bindingResult.hasErrors()) {
             redirectAttributes.addFlashAttribute("error", bindingResult.getAllErrors().get(0).getDefaultMessage());
         }
+        
 //        User user = currentUserProvider.getUser();
         User user = null;
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -110,7 +114,7 @@ public class ImageController {
 //            user = (User) authentication.getPrincipal();
 //        }
 
-        // ADD ATTRIBUTE FOR AUTHOR THAT HE IS THE AUTHOR OF THIS IMAGE
+       
         imageService.add(imageFile.getFile(), imageFile.getTitle(), user, imageFile.getDescription());
 
         return "redirect:/";

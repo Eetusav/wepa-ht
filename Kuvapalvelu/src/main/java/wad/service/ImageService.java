@@ -42,12 +42,12 @@ public class ImageService {
     }
 
     public List<Image> getLatest(int max) {
-        Pageable page = new PageRequest(0, max, Direction.DESC, "title");
+        Pageable page = new PageRequest(0, max, Direction.DESC, "dateAdded");
         return imageRepository.findAll(page).getContent();
     }
     // WAS dateAdded
-    public List<Image> getLatest(int min, int max) {
-        Pageable page = new PageRequest(min, max, Direction.DESC, "title");
+    public List<Image> getLatest(int sivu, int max) {
+        Pageable page = new PageRequest(sivu, max, Direction.DESC, "dateAdded");
         return imageRepository.findAll(page).getContent();
     }
 

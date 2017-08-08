@@ -10,6 +10,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import javax.annotation.PostConstruct;
 import javax.imageio.ImageIO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,6 +44,13 @@ public class UserService {
         return uR.findByUsername(authentication.getName());
     }
 
+    public boolean compareUsers(User user1, User user2) {
+        if (Objects.equals(user1.getId(), user2.getId())) {
+            return true;
+        }
+        return false;
+    }
+
     @PostConstruct
     public void init() {
         Role admin = new Role("ADMIN");
@@ -64,8 +72,6 @@ public class UserService {
         diablo.setPassword("user1");
         diablo.setUsername("user1");
         uR.save(diablo);
-        
-        
 
     }
 

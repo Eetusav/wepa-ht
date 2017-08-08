@@ -49,7 +49,7 @@ public class DefaultController {
     private FollowRepository followRepository;
     @Autowired
     private FollowService followService;
-    private static final int IMAGES_PER_PAGE = 2;
+    private static final int IMAGES_PER_PAGE = 6;
 
 //    @RequestMapping(value = "login", method = RequestMethod.GET)
 //    public String viewLogin(Model model) {
@@ -67,12 +67,19 @@ public class DefaultController {
 
         List<User> followedUsers = followService.getAllFollowedUsers();
         model.addAttribute("following", followedUsers);
+         List<User> userList2 = userRepository.findAll();
         List<User> userList = userRepository.findAll();
         userList.remove(self);
-        followedUsers.forEach((user) -> {
-            userList.remove(user);
-        });
-        model.addAttribute("users", userList);
+        for (User user2 : userList2){
+            for (User user : followedUsers){
+                if (userService.compareUsers(user, user2)){
+                    userList.remove(user2);
+                }
+            }
+        }
+        if (!userList.isEmpty()){
+            model.addAttribute("users", userList);
+        }
         model.addAttribute("self", self);
 
         List<Image> images = imageService.getLatest(IMAGES_PER_PAGE);
@@ -117,8 +124,9 @@ public class DefaultController {
 //        model.addAttribute("images2", images2.subList(0, images.size() / 2));
 //        model.addAttribute("images", images2.subList(images.size() / 2, images.size()));
 //
+        int page = 1;
         if (imageRepository.findAll().size() > IMAGES_PER_PAGE) {
-            model.addAttribute("nextPage", 1);
+            model.addAttribute("nextPage", page);
         }
         return "index";
     }
@@ -139,7 +147,7 @@ public class DefaultController {
         model.addAttribute("self", self);
         //
 
-        List<Image> images = imageService.getLatest((page * IMAGES_PER_PAGE) - IMAGES_PER_PAGE, page * IMAGES_PER_PAGE);
+        List<Image> images = imageService.getLatest(page, IMAGES_PER_PAGE);
 //        List<Image> images = imageRepository.findAll();
 //        model.addAttribute("images", images);
         if (images.size() > IMAGES_PER_PAGE / 2) {
@@ -150,7 +158,7 @@ public class DefaultController {
         } else {
             model.addAttribute("images", images);
         }
-        if (imageRepository.findAll().size() > page * IMAGES_PER_PAGE) {
+        if (imageRepository.findAll().size() > page * IMAGES_PER_PAGE + IMAGES_PER_PAGE) {
             model.addAttribute("nextPage", page + 1);
         }
 

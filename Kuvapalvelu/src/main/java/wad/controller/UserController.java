@@ -49,8 +49,14 @@ public class UserController {
 
     @RequestMapping(method = RequestMethod.POST)
     public String create(@ModelAttribute User user) {
+        List<User> lista = userRepository.findAll();
+        for (User user1 : lista){
+            if (user1.getUsername().equals(user.getUsername())){
+                return "redirect:/signup";
+            }
+        }
         userRepository.save(user);
-        return "redirect:/index";
+        return "redirect:/";
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
@@ -63,7 +69,7 @@ public class UserController {
         model.addAttribute("self", user);
         List<Image> imagesFromUser = imageRepository.findAllByAuthor(user);
         model.addAttribute("images", imagesFromUser);
-        // LISÄÄ ALLE SITEN ETTÄ TULOSTETAAN VAIN KUNKIN KUVAN KOHDALLA VAIN TIETYT KOMMENTIT
+
         List<Comment> commentsOnImage = commentRepository.findAll();
         model.addAttribute("comments", commentsOnImage);
         return "user";
