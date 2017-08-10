@@ -1,29 +1,30 @@
-## Aiheen kuvaus ja rakenne
-**Aihe:** Toteutetaan j‰rjestelm‰, joka ominaisuuksiltaan toimii aluksi kuin tavallinen laskin. Ominaisuuksina on siis tunnetusti esimerkiksi summaus-, erutos-, tulo- ja osam‰‰r‰ operaatiot.
-Lis‰ksi voisi olla kiinnostavaa saisiko laskimeen tehty‰ jotain lis‰toiminnallisuutta, ja nyt loppuvaiheen edit: Laskimeen lis‰tty tavallisimpia "funktio-operaatioita", kuten esimerkiksi neliˆjuuri yms. 
-Laskimeen on lis‰ksi tehty ns. muisti ja historia ominaisuudet, jossa muistiin voidaan tallentaa ja palauttaa jokin generoitu tulos. Historia ominaisuus taas n‰ytt‰‰ listan generoituja tuloksia, 
-jonka pystyy tallentamaan erilliseen tekstitiedostoon, sek‰ hakemaan sen sielt‰ (esimerkiksi eri sessiossa).
+## Aiheen kuvaus
+**Aihe:** Toteutetaan web-palvelin jonne palvelimen k‰ytt‰j‰t voivat lis‰t‰ kuvia sek‰ tyk‰t‰ ja kommentoida niit‰. Sovelluksen t‰rkeimp‰n‰ teht‰v‰n‰ on k‰ytt‰jien lis‰‰mien kuvien listaaminen
+siten, ett‰ ylim‰‰r‰ist‰ informaatiota ei n‰ytet‰ liikaa. T‰ll‰ tarkoitetaan sit‰, ett‰ p‰‰sivulla listataan mahdollisimmat selke‰sti kuvat ja kuvien kommentointi sek‰ kommenttien tarkastelu tapahtuu kuvan
+lis‰‰j‰n profiilisivulla. 
 
 **Rakenne:** 
-Kaikessa yksinkertaisuudessaan voidaan mielt‰‰, ett‰ laskimessa on kolme (p‰‰)luokkaa Operaatio, Historia ja K‰yttˆliittym‰(kulkee nimell‰ Laskin). K‰ytt‰j‰ n‰kee ja "koskee" vain k‰yttˆliittym‰‰n
-ja sen kautta v‰littyy jotain taikatemppuja, jotka k‰ytt‰v‰t Operaatio-luokkaa ja historiaa. Operaatio ja historia suorittavat k‰yttˆliittym‰‰n annettujen komentojen mukaisesti aina haluttuja asioita.
+
 
 **K‰yttˆohje:**
-Itsess‰‰n laskin on varmasti monelle tuttu, mutta selvennet‰‰n joidenkin tiettyjen nappien toimintaa. 
-* MC = Memory Clear: tyhjent‰‰ muistikent‰n. 
-* MR = Memory Read: lukee muistikent‰n tuloksen syˆtteeksi. 
-* MS = Memory Set: asettaa syˆtteen tuloksen muistikentt‰‰n muistiin.
-* CH = clear history: tyhjent‰‰ historian (ei tyhjenn‰ ohjelman ulkopuolista tekstitiedostoa). 
-* WriteHistory: kirjoittaa historian ohjelman ulkopuoliseen tekstitiedostoon (jos tekstitiedostoa ei ole olemassa, luodaan sellainen). 
-* ReadHistory: lukee ohjelman ulkopuolisesta tekstitiedostosta aikaisemmin tallennetun historian (oletuksena tyhj‰ historia, jos tekstitiedostoa ei ole olemassa, luodaan sellainen).
-* Lis‰ksi tan/cos/sin operaatioiden syˆte oletetaan radiaaneiksi.
+Ensin k‰ytt‰j‰n tulee kirjautua sis‰lle k‰ytt‰j‰tunnuksillaan, jos k‰ytt‰j‰ll‰ ei ole jo k‰ytt‰j‰tunnusta niin se tulee tehd‰ painamalla kohdasta "sign up" ja t‰ytt‰m‰ll‰ lomake.  
+T‰m‰n j‰lkeen kuvapalvelussa voi tehd‰ seuraavia asioita:  
+* Kuvien selailu ja tykk‰ily etusivulla.
+* Kuvien lis‰‰minen painamalla etusivulla kohdasta "Add new image".
+* Muita k‰ytt‰ji‰ voi tarkastella voi tarkastella etusivulla, josta heit‰ voi myˆs alkaa seuraamaan.
+* Painamalla muiden k‰ytt‰jien nime‰ aukeaa kyseisen k‰ytt‰j‰n profiilisivu, joka sis‰lt‰‰ k‰ytt‰j‰n lis‰‰m‰t kuvat, sek‰ mahdollisuus kuvien kommentointiin.
+* Painamalla kuvasta aukeaa sivu, jossa kuva esitet‰‰n alkuper‰isess‰ koossaan, sek‰ kuvan lis‰‰j‰ll‰ (ja admineilla) on mahdollisuus poistaa kuva.
+* Jos palvelussa on riitt‰v‰sti kuvia, niin lis‰‰ kuvia p‰‰see selailemaan painamalla etusivulla alareunassa kohdasta "Load more".
 
-**K‰ytt‰j‰t:** Laskimen k‰ytt‰j‰
+
+**K‰ytt‰j‰t:** K‰ytt‰j‰, admin
 
 **K‰ytt‰j‰n toiminnot:**
-* Laskimelle syˆtteiden antaminen.
-* Laskimen operaatioiden k‰ytt‰minen (summaus, erotus jne.).
-* Tulosteiden tarkasteleminen.  
+* Yll‰olevan k‰yttˆohjeen mukaiset toiminnot.
+
+
+**Adminin toiminnot:**
+* Samat kuin k‰ytt‰j‰ll‰, sek‰ lis‰ksi admin pystyy poistamaan muidenkin lis‰‰mi‰ kuvia. 
  
   
    

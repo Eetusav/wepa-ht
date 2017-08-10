@@ -31,8 +31,9 @@ public class LikeController {
     public String likeImage(@PathVariable Long id, Model model) {
         imageService.likeImage(id);
         Long userId = imageRepository.findOne(id).getAuthor().getId();
+        
 //        model.addAttribute("userId", userId);
-        return "redirect:/{page}";
+        return "redirect:/";
     }
 
     @PreAuthorize("authenticated")

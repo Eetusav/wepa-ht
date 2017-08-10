@@ -10,6 +10,9 @@ import java.util.Date;
 import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
@@ -34,12 +37,16 @@ public class Image extends AbstractPersistable<Long> {
     private Date dateAdded;
     @Lob
     private byte[] image;
+    @Lob
     @ManyToOne(fetch = FetchType.EAGER)
     private User author;
     @ManyToMany
     private List<User> likes = new ArrayList<>();
     @OneToMany(mappedBy = "image", fetch = FetchType.EAGER)
     private List<Comment> comments = new ArrayList<>();
+//    @Id
+//    @GeneratedValue(strategy = GenerationType.TABLE)
+//    private Long id;
 
     /*
     LISÄÄ TÄHÄN VIELÄ TYKKÄYKSET JA KOMMENTIT
@@ -112,5 +119,11 @@ public class Image extends AbstractPersistable<Long> {
     public void setComments(List<Comment> comments) {
         this.comments = comments;
     }
+//    public void setId(Long id){
+//        this.id = id;
+//    }
+//    public Long getId(){
+//        return this.id;
+//    }
 
 }

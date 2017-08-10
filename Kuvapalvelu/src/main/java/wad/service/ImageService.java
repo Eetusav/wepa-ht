@@ -45,6 +45,7 @@ public class ImageService {
         Pageable page = new PageRequest(0, max, Direction.DESC, "dateAdded");
         return imageRepository.findAll(page).getContent();
     }
+
     // WAS dateAdded
     public List<Image> getLatest(int sivu, int max) {
         Pageable page = new PageRequest(sivu, max, Direction.DESC, "dateAdded");
@@ -56,10 +57,11 @@ public class ImageService {
         Pageable page = new PageRequest(0, max, Direction.DESC, "dateAdded");
         return imageRepository.findByAuthor(user, page).getContent();
     }
-    public List<Image> getAllImagesFromUser(User user){
+
+    public List<Image> getAllImagesFromUser(User user) {
         return imageRepository.findAllByAuthor(user);
     }
-    
+
     public Image add(MultipartFile file, String title, User user, String description) throws IllegalArgumentException, IOException {
         Image image = new Image();
         image.setAdded(new Date());
@@ -70,18 +72,20 @@ public class ImageService {
         image.setAuthor(userService.getAuthenticatedUser());
         return imageRepository.save(image);
     }
-    public void delete(Long id){
+
+    public void delete(Long id) {
         imageRepository.delete(id);
     }
-    
+
     @Transactional
-    public int likeImage(Long id){
+    public int likeImage(Long id) {    
         Image image = imageRepository.findOne(id);
         User user = userService.getAuthenticatedUser();
-        if (image == null){
+    
+        if (image == null) {
             return 0;
         }
-        if (user == null){
+        if (user == null) {
             return image.getLikes().size();
         }
         if (!image.getLikes().contains(user)){
@@ -93,5 +97,5 @@ public class ImageService {
         }
         return image.getLikes().size();
     }
-    
+
 }

@@ -45,10 +45,7 @@ public class UserService {
     }
 
     public boolean compareUsers(User user1, User user2) {
-        if (Objects.equals(user1.getId(), user2.getId())) {
-            return true;
-        }
-        return false;
+        return Objects.equals(user1.getId(), user2.getId());
     }
 
     @PostConstruct

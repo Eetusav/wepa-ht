@@ -5,6 +5,7 @@
  */
 package wad.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -51,15 +52,15 @@ public class CommentService {
 
     public Comment addComment(Long imageId, String comment) {
         if (comment.isEmpty()) {
-            throw new IllegalArgumentException("Comment can not be empty.");
+            throw new NullPointerException("Comment can not be empty.");
         }
         Image image = imageService.getById(imageId);
         if (image == null) {
-            throw new IllegalArgumentException("No image found by given id.");
+            throw new NullPointerException("No image found by given id.");
         }
         User user = userService.getAuthenticatedUser();
         if (user == null) {
-            throw new IllegalArgumentException("You must login to post comments.");
+            throw new NullPointerException("You must login to post comments.");
         }
         Comment kommentti = new Comment();
         kommentti.setComment(comment);
@@ -76,12 +77,14 @@ public class CommentService {
     public void delete(Long id) {
         commentRepository.delete(id);
     }
-    public void deleteAllCommentsOnImage(Long imageId){
+
+    public void deleteAllCommentsOnImage(Long imageId) {
         Image image = imageRepository.findOne(imageId);
+//        List<Comment> lista = new ArrayList<>();
+//        image.setComments(lista);
         List<Comment> comments = image.getComments();
         for (Comment comment : comments){
             commentRepository.delete(comment.getId());
         }
     }
-
 }
