@@ -24,7 +24,10 @@ public class FollowService {
     private FollowRepository followRepository;
     @Autowired
     private UserService userService;
-
+    /**
+     * 
+     * @return List of users that the current user follows.
+     */
     public List<User> getAllFollowedUsers() {
         User follower = userService.getAuthenticatedUser();
         List<Follow> follows = followRepository.findAllByFollower(follower);

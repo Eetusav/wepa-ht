@@ -32,36 +32,76 @@ public class ImageService {
 
     @Autowired
     private UserService userService;
-
+    
+    /**
+     * Finds an image from the database by given id.
+     * @param id image id that is searched from the database.
+     * @return image by given id or null if not found.
+     */
     public Image getById(Long id) {
         return imageRepository.findOne(id);
     }
-
+    
+    /**
+     * Returns the amount of images in the database.
+     * @return amount of images in the database (in long).
+     */
     public long countImages() {
         return imageRepository.count();
     }
-
+    
+    /**
+     * Searches images from the database using PageRequest. Sorted by image date.
+     * @param max Number of images wanted to return.
+     * @return List of images determined by param max and sorted by date.
+     */
     public List<Image> getLatest(int max) {
         Pageable page = new PageRequest(0, max, Direction.DESC, "dateAdded");
         return imageRepository.findAll(page).getContent();
     }
 
     // WAS dateAdded
-    public List<Image> getLatest(int sivu, int max) {
-        Pageable page = new PageRequest(sivu, max, Direction.DESC, "dateAdded");
-        return imageRepository.findAll(page).getContent();
+    /**
+     * Searches images in the database using PageRequest. Sorted by image date.
+     * @param page Number of page.
+     * @param max Number of images wanted to return.
+     * @return List of images determined by param max and page, sorted by date.
+     */
+    public List<Image> getLatest(int page, int max) {
+        Pageable pageable = new PageRequest(page, max, Direction.DESC, "dateAdded");
+        return imageRepository.findAll(pageable).getContent();
     }
-
+    
+    /**
+     * Searches images added by defined user in the database using PageRequest. Sorted by image date.
+     * @param user User who's images are searched.
+     * @param max Number of images wanted to return.
+     * @return List of images determined by param user and page, sorted by date.
+     */
     @Transactional
     public List<Image> getLatestImagesFromUser(User user, int max) {
-        Pageable page = new PageRequest(0, max, Direction.DESC, "dateAdded");
-        return imageRepository.findByAuthor(user, page).getContent();
+        Pageable pageable = new PageRequest(0, max, Direction.DESC, "dateAdded");
+        return imageRepository.findByAuthor(user, pageable).getContent();
     }
-
+    /**
+     * Searches all images added by defined user.
+     * @param user User who's images are searched.
+     * @return List of images by user, sorted by date.
+     */
     public List<Image> getAllImagesFromUser(User user) {
         return imageRepository.findAllByAuthor(user);
     }
-
+    
+    /**
+     * Adds image to database.
+     * @param file Image wanted to add.
+     * @param title Title of the image.
+     * @param user User who adds the image.
+     * @param description Description of the image.
+     * @return added image.
+     * @throws IllegalArgumentException
+     * @throws IOException 
+     */
     public Image add(MultipartFile file, String title, User user, String description) throws IllegalArgumentException, IOException {
         Image image = new Image();
         image.setAdded(new Date());
@@ -72,11 +112,19 @@ public class ImageService {
         image.setAuthor(userService.getAuthenticatedUser());
         return imageRepository.save(image);
     }
-
+    /**
+     * Deletes image from the database.
+     * @param id id of the image wanted to delete.
+     */
     public void delete(Long id) {
         imageRepository.delete(id);
     }
-
+    
+    /**
+     * Adds like to the image or dislike of it is already liked by current user.
+     * @param id id of the image wanted to delete.
+     * @return number of likes on image.
+     */
     @Transactional
     public int likeImage(Long id) {    
         Image image = imageRepository.findOne(id);

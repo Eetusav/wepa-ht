@@ -38,16 +38,29 @@ public class UserService {
     private UserRepository uR;
     @Autowired
     private FollowRepository followRepository;
-
+    
+    /**
+     * Returns the current user that is logged in to the service.
+     * @return current user
+     */
     public User getAuthenticatedUser() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         return uR.findByUsername(authentication.getName());
     }
-
+    
+    /**
+     * Returns true if the given users are equal (same id) and false otherwise.
+     * @param user1
+     * @param user2
+     * @return true if the users are equal.
+     */
     public boolean compareUsers(User user1, User user2) {
         return Objects.equals(user1.getId(), user2.getId());
     }
 
+    /**
+     * Assigns two users in to the database. One of which is also an admin.
+     */
     @PostConstruct
     public void init() {
         Role admin = new Role("ADMIN");
