@@ -16,7 +16,6 @@
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>1.4.2.RELEASE</version>
-        <start-class>wad.KuvapalveluApplication.java</start-class>
         <relativePath/>
     </parent>
     <dependencies>   
@@ -81,7 +80,7 @@
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>htmlunit-driver</artifactId>
         </dependency>
-                <dependency>
+        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot</artifactId>
             <version>1.4.2.RELEASE</version>
@@ -109,13 +108,20 @@
         </dependency>
     </dependencies>
     <build>
-        <plugins>
+        <plugins> 
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
                     <mainClass>wad.KuvapalveluApplication.java</mainClass> 
                 </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
             <plugin>
                 <groupId>org.jacoco</groupId>
