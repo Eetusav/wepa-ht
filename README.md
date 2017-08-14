@@ -1,5 +1,5 @@
 # wepa-ht
-
+Kesä 2017 web-palvelinohjelmoinnin harjoitustyö
 ## Dokumentaatio  
 [aiheen kuvaus](dokumentaatio/aiheenKuvausJaRakenne.md) 
 

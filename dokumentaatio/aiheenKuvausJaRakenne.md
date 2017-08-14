@@ -27,10 +27,3 @@ T‰m‰n j‰lkeen kuvapalvelussa voi tehd‰ seuraavia asioita:
 * Samat kuin k‰ytt‰j‰ll‰, sek‰ lis‰ksi admin pystyy poistamaan muidenkin lis‰‰mi‰ kuvia. 
  
   
-   
-### Laskimen luokkakaavio  
-![Laskimen luokkakaavio](/dokumentaatio/kaaviot/LuokkakaavioD6.png)  
-### Laskimen sekvenssikaavio 1  
-![Laskimen sekvenssikaavio 1](/dokumentaatio/kaaviot/Sekvenssikaavio2.png)  
-### Laskimen sekvenssikaavio 2  
-![Laskimen sekvenssikaavio 2](/dokumentaatio/kaaviot/Sekvenssikaavio3.png)  
