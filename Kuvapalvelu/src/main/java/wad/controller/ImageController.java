@@ -148,8 +148,10 @@ public class ImageController {
         role.setName("ADMIN");
         if (user.getRoles().contains(role) || user == author) {
             commentService.deleteAllCommentsOnImage(id);
-            image.setComments(new List<>());
-            image.setLikes(new List<>());
+            List<Comment> emptyList1 = new ArrayList<>();
+            List<User> emptyList2 = new ArrayList<>();
+            image.setComments(emptyList1);
+            image.setLikes(emptyList2);
             imageRepository.delete(image);           
             return "redirect:/";
         }
