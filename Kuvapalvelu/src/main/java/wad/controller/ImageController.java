@@ -28,6 +28,7 @@ import wad.service.ImageService;
 import wad.service.UserService;
 import helpers.CurrentUserProvider;
 import java.util.ArrayList;
+import java.util.List;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -147,8 +148,8 @@ public class ImageController {
         role.setName("ADMIN");
         if (user.getRoles().contains(role) || user == author) {
             commentService.deleteAllCommentsOnImage(id);
-            image.setComments(new ArrayList<>());
-            image.setLikes(new ArrayList<>());
+            image.setComments(new List<>());
+            image.setLikes(new List<>());
             imageRepository.delete(image);           
             return "redirect:/";
         }

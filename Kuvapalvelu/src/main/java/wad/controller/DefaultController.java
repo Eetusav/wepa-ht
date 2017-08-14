@@ -140,9 +140,12 @@ public class DefaultController {
         model.addAttribute("following", followedUsers);
         List<User> userList = userRepository.findAll();
         userList.remove(self);
-        followedUsers.forEach((user) -> {
+        for (User user : followedUsers){
             userList.remove(user);
-        });
+        }
+//        followedUsers.forEach((user) -> {
+//            userList.remove(user);
+//        });
         model.addAttribute("users", userList);
         model.addAttribute("self", self);
         //
