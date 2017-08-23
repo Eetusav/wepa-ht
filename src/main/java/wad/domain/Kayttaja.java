@@ -32,14 +32,13 @@ import org.springframework.security.crypto.bcrypt.BCrypt;
  *
  * @author Matti
  */
-@SuppressWarnings("serial")
 @Entity
 //@Table(name = "registered_user")
 public class Kayttaja extends AbstractPersistable<Long> implements UserDetails {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.TABLE)
-    private Long id;
+//    @Id
+//    @GeneratedValue(strategy = GenerationType.TABLE)
+//    private Long id;
 
     @NotBlank
     private String name;
@@ -89,13 +88,13 @@ public class Kayttaja extends AbstractPersistable<Long> implements UserDetails {
         this.name = name;
     }
 
-    public Long getId() {
-        return this.id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
+//    public Long getId() {
+//        return this.id;
+//    }
+//
+//    public void setId(Long id) {
+//        this.id = id;
+//    }
 
     public String getUsername() {
         return this.username;
