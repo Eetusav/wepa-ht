@@ -17,7 +17,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.web.multipart.MultipartFile;
 import wad.domain.Image;
-import wad.domain.User;
+import wad.domain.Kayttaja;
 import wad.repository.ImageRepository;
 
 /**
@@ -79,7 +79,7 @@ public class ImageService {
      * @return List of images determined by param user and page, sorted by date.
      */
     @Transactional
-    public List<Image> getLatestImagesFromUser(User user, int max) {
+    public List<Image> getLatestImagesFromUser(Kayttaja user, int max) {
         Pageable pageable = new PageRequest(0, max, Direction.DESC, "dateAdded");
         return imageRepository.findByAuthor(user, pageable).getContent();
     }
@@ -88,7 +88,7 @@ public class ImageService {
      * @param user User who's images are searched.
      * @return List of images by user, sorted by date.
      */
-    public List<Image> getAllImagesFromUser(User user) {
+    public List<Image> getAllImagesFromUser(Kayttaja user) {
         return imageRepository.findAllByAuthor(user);
     }
     
@@ -102,7 +102,7 @@ public class ImageService {
      * @throws IllegalArgumentException
      * @throws IOException 
      */
-    public Image add(MultipartFile file, String title, User user, String description) throws IllegalArgumentException, IOException {
+    public Image add(MultipartFile file, String title, Kayttaja user, String description) throws IllegalArgumentException, IOException {
         Image image = new Image();
         image.setAdded(new Date());
         image.setTitle(title);
@@ -128,7 +128,7 @@ public class ImageService {
     @Transactional
     public int likeImage(Long id) {    
         Image image = imageRepository.findOne(id);
-        User user = userService.getAuthenticatedUser();
+        Kayttaja user = userService.getAuthenticatedUser();
     
         if (image == null) {
             return 0;

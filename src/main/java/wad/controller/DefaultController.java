@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import wad.domain.Follow;
 import wad.domain.Image;
-import wad.domain.User;
+import wad.domain.Kayttaja;
 import wad.repository.FollowRepository;
 import wad.repository.ImageRepository;
 import wad.repository.UserRepository;
@@ -63,15 +63,15 @@ public class DefaultController {
     @RequestMapping(method = RequestMethod.GET)
     public String view(Model model) {
 //        PageRequest pr = new PageRequest(0, 10, Sort.Direction.DESC, "dateAdded");
-        User self = userService.getAuthenticatedUser();
+        Kayttaja self = userService.getAuthenticatedUser();
 
-        List<User> followedUsers = followService.getAllFollowedUsers();
+        List<Kayttaja> followedUsers = followService.getAllFollowedUsers();
         model.addAttribute("following", followedUsers);
-         List<User> userList2 = userRepository.findAll();
-        List<User> userList = userRepository.findAll();
+         List<Kayttaja> userList2 = userRepository.findAll();
+        List<Kayttaja> userList = userRepository.findAll();
         userList.remove(self);
-        for (User user2 : userList2){
-            for (User user : followedUsers){
+        for (Kayttaja user2 : userList2){
+            for (Kayttaja user : followedUsers){
                 if (userService.compareUsers(user, user2)){
                     userList.remove(user2);
                 }
@@ -134,13 +134,13 @@ public class DefaultController {
     @RequestMapping("{page}")
     public String loadMorePages(@PathVariable int page, Model model) {
         //SISÄLTÄÄ SIVUOSIOT
-        User self = userService.getAuthenticatedUser();
+        Kayttaja self = userService.getAuthenticatedUser();
 
-        List<User> followedUsers = followService.getAllFollowedUsers();
+        List<Kayttaja> followedUsers = followService.getAllFollowedUsers();
         model.addAttribute("following", followedUsers);
-        List<User> userList = userRepository.findAll();
+        List<Kayttaja> userList = userRepository.findAll();
         userList.remove(self);
-        for (User user : followedUsers){
+        for (Kayttaja user : followedUsers){
             userList.remove(user);
         }
 //        followedUsers.forEach((user) -> {

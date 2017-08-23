@@ -10,14 +10,14 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import wad.domain.Image;
-import wad.domain.User;
+import wad.domain.Kayttaja;
 
 /**
  *
  * @author Matti
  */
 public interface ImageRepository extends JpaRepository<Image, Long> {
-    public List<Image> findAllByAuthor(User author);
+    public List<Image> findAllByAuthor(Kayttaja author);
     
-    public Page<Image> findByAuthor(User author, Pageable pageable);
+    public Page<Image> findByAuthor(Kayttaja author, Pageable pageable);
 }

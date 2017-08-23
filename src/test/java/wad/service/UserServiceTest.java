@@ -21,7 +21,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import wad.domain.User;
+import wad.domain.Kayttaja;
 import wad.repository.RoleRepository;
 import wad.repository.UserRepository;
 
@@ -60,7 +60,7 @@ public class UserServiceTest {
 
     @Before
     public void setUp() {
-User TEST_USER = new User();
+Kayttaja TEST_USER = new Kayttaja();
         TEST_USER.setName("testAuthentication");
         TEST_USER.setId(new Long(3253253));
         TEST_USER.setPassword("testAuthentication");
@@ -68,7 +68,7 @@ User TEST_USER = new User();
         TEST_USER.setSlogan("testAuthentication!");
         userRepository.save(TEST_USER);
 
-        User user1 = userRepository.findByUsername("testAuthentication");
+        Kayttaja user1 = userRepository.findByUsername("testAuthentication");
         
         Authentication auth = new UsernamePasswordAuthenticationToken(user1.getUsername(), user1.getPassword());
         SecurityContextHolder.getContext().setAuthentication(auth);
@@ -103,14 +103,14 @@ User TEST_USER = new User();
 
     @Test
     public void comparingUsersWork() {
-        User user1 = new User();
+        Kayttaja user1 = new Kayttaja();
         user1.setName("test1");
         user1.setId(new Long(437569));
         user1.setSlogan("test1");
         user1.setUsername("test1");
         user1.setPassword("test1");
 
-        User user2 = new User();
+        Kayttaja user2 = new Kayttaja();
         user2.setName("test2");
         user2.setId(new Long(123));
         user2.setSlogan("test2");
@@ -136,7 +136,7 @@ User TEST_USER = new User();
 //        Authentication auth = new UsernamePasswordAuthenticationToken(user1.getUsername(), user1.getPassword());
 //        SecurityContextHolder.getContext().setAuthentication(auth);
 
-        User currentUser = userService.getAuthenticatedUser();
+        Kayttaja currentUser = userService.getAuthenticatedUser();
         assertEquals(currentUser.getUsername(), "testAuthentication");
 //        assertEquals(currentUser.getName(), "Stitches");
 //        assertEquals(currentUser.getSlogan(), "");

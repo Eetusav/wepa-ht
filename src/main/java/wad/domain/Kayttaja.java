@@ -34,8 +34,8 @@ import org.springframework.security.crypto.bcrypt.BCrypt;
  */
 @SuppressWarnings("serial")
 @Entity
-@Table(name = "registered_user")
-public class User extends AbstractPersistable<Long> implements UserDetails {
+//@Table(name = "registered_user")
+public class Kayttaja extends AbstractPersistable<Long> implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE)

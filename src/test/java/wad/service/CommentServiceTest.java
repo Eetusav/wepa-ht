@@ -28,7 +28,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import wad.KuvapalveluApplication;
 import wad.domain.Comment;
 import wad.domain.Image;
-import wad.domain.User;
+import wad.domain.Kayttaja;
 import wad.repository.CommentRepository;
 import wad.repository.ImageRepository;
 import wad.repository.UserRepository;
@@ -57,7 +57,7 @@ public class CommentServiceTest {
     @Autowired
     private CommentRepository commentRepository;
 
-    private User TEST_USER;
+    private Kayttaja TEST_USER;
 
     public CommentServiceTest() {
     }
@@ -87,14 +87,14 @@ public class CommentServiceTest {
     // public void hello() {}
     @Test
     public void getLatestCommentsOnImageWorks() {
-        TEST_USER = new User();
+        TEST_USER = new Kayttaja();
         TEST_USER.setName("testComments");
         TEST_USER.setId(new Long(432643646));
         TEST_USER.setPassword("testComments");
         TEST_USER.setUsername("testComments");
         TEST_USER.setSlogan("testComments!");
         userRepository.save(TEST_USER);
-        User user1 = userRepository.findByUsername("testComments");
+        Kayttaja user1 = userRepository.findByUsername("testComments");
         Authentication auth = new UsernamePasswordAuthenticationToken(user1.getUsername(), user1.getPassword());
         SecurityContextHolder.getContext().setAuthentication(auth);
 
@@ -113,14 +113,14 @@ public class CommentServiceTest {
 
     @Test
     public void getLatestCommentsFromUserWorks() {
-        User user = new User();
+        Kayttaja user = new Kayttaja();
         user.setUsername("testingComments");
         user.setPassword("testingComments");
         user.setId(new Long(382475682));
         user.setName("testingComments");
         user.setSlogan("testingComments");
         userRepository.save(user);
-        User user1 = userRepository.findByUsername("testingComments");
+        Kayttaja user1 = userRepository.findByUsername("testingComments");
         Authentication auth = new UsernamePasswordAuthenticationToken(user1.getUsername(), user1.getPassword());
         SecurityContextHolder.getContext().setAuthentication(auth);
 
@@ -138,7 +138,7 @@ public class CommentServiceTest {
 
     @Test
     public void getAllCommentsFromUserWorks() {
-        User user = userService.getAuthenticatedUser();
+        Kayttaja user = userService.getAuthenticatedUser();
         Image image = new Image();
 
         imageRepository.save(image);
@@ -155,7 +155,7 @@ public class CommentServiceTest {
 
     @Test(expected = NullPointerException.class)
     public void errorMessagesWorkForAddComment() {
-        User userNull = null;
+        Kayttaja userNull = null;
 //        Authentication auth = new UsernamePasswordAuthenticationToken(userNull.getUsername(), userNull.getPassword());
 //        SecurityContextHolder.getContext().setAuthentication(auth);
         Image imageNull = null;
@@ -172,14 +172,14 @@ public class CommentServiceTest {
 
     @Test(expected = NullPointerException.class)
     public void getCommentAndDeleteWorks() {
-        User user = new User();
+        Kayttaja user = new Kayttaja();
         user.setUsername("ApinaTestaaKommentteja");
         user.setPassword("ApinaTestaaKommentteja");
         user.setId(new Long(34262436));
         user.setName("ApinaTestaaKommentteja");
         user.setSlogan("ApinaTestaaKommentteja");
         userRepository.save(user);
-        User user1 = userRepository.findByUsername("ApinaTestaaKommentteja");
+        Kayttaja user1 = userRepository.findByUsername("ApinaTestaaKommentteja");
         Authentication auth = new UsernamePasswordAuthenticationToken(user1.getUsername(), user1.getPassword());
         SecurityContextHolder.getContext().setAuthentication(auth);
 

@@ -21,7 +21,7 @@ import org.springframework.web.multipart.MultipartFile;
 import wad.domain.Follow;
 import wad.domain.Image;
 import wad.domain.Role;
-import wad.domain.User;
+import wad.domain.Kayttaja;
 import wad.repository.FollowRepository;
 import wad.repository.UserRepository;
 
@@ -43,7 +43,7 @@ public class UserService {
      * Returns the current user that is logged in to the service.
      * @return current user
      */
-    public User getAuthenticatedUser() {
+    public Kayttaja getAuthenticatedUser() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         return uR.findByUsername(authentication.getName());
     }
@@ -54,7 +54,7 @@ public class UserService {
      * @param user2
      * @return true if the users are equal.
      */
-    public boolean compareUsers(User user1, User user2) {
+    public boolean compareUsers(Kayttaja user1, Kayttaja user2) {
         return Objects.equals(user1.getId(), user2.getId());
     }
 

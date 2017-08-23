@@ -23,7 +23,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import wad.KuvapalveluApplication;
 import wad.domain.Follow;
-import wad.domain.User;
+import wad.domain.Kayttaja;
 import wad.repository.FollowRepository;
 import wad.repository.RoleRepository;
 import wad.repository.UserRepository;
@@ -64,7 +64,7 @@ public class FollowServiceTest {
 
     @Before
     public void setUp() {
-        User TEST_USER = new User();
+        Kayttaja TEST_USER = new Kayttaja();
         TEST_USER.setName("testFollowService");
         TEST_USER.setId(new Long(563563456));
         TEST_USER.setPassword("testFollowService");
@@ -72,7 +72,7 @@ public class FollowServiceTest {
         TEST_USER.setSlogan("testFollowService!");
         userRepository.save(TEST_USER);
 
-        User user1 = userRepository.findByUsername("testFollowService");
+        Kayttaja user1 = userRepository.findByUsername("testFollowService");
 
         Authentication auth = new UsernamePasswordAuthenticationToken(user1.getUsername(), user1.getPassword());
         SecurityContextHolder.getContext().setAuthentication(auth);
@@ -94,8 +94,8 @@ public class FollowServiceTest {
     
     @Test
     public void getAllFollowedUsersWorks(){
-        User user = userService.getAuthenticatedUser();
-        User to = new User();
+        Kayttaja user = userService.getAuthenticatedUser();
+        Kayttaja to = new Kayttaja();
         to.setUsername("testii");
         to.setPassword("testii");
         to.setSlogan("testii");

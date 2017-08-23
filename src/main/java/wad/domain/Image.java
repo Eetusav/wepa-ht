@@ -39,9 +39,9 @@ public class Image extends AbstractPersistable<Long> {
     private byte[] image;
     @Lob
     @ManyToOne(fetch = FetchType.EAGER)
-    private User author;
+    private Kayttaja author;
     @ManyToMany
-    private List<User> likes = new ArrayList<>();
+    private List<Kayttaja> likes = new ArrayList<>();
     @OneToMany(mappedBy = "image", fetch = FetchType.EAGER)
     private List<Comment> comments = new ArrayList<>();
 //    @Id
@@ -96,19 +96,19 @@ public class Image extends AbstractPersistable<Long> {
         this.contentType = contentType;
     }
 
-    public User getAuthor() {
+    public Kayttaja getAuthor() {
         return author;
     }
 
-    public void setAuthor(User author) {
+    public void setAuthor(Kayttaja author) {
         this.author = author;
     }
 
-    public List<User> getLikes() {
+    public List<Kayttaja> getLikes() {
         return likes;
     }
 
-    public void setLikes(List<User> likes) {
+    public void setLikes(List<Kayttaja> likes) {
         this.likes = likes;
     }
 

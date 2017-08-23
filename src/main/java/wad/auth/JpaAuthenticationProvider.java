@@ -17,7 +17,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import wad.repository.UserRepository;
-import wad.domain.User;
+import wad.domain.Kayttaja;
 
 /**
  *
@@ -34,7 +34,7 @@ public class JpaAuthenticationProvider implements AuthenticationProvider {
         String username = a.getPrincipal().toString();
         String password = a.getCredentials().toString();
 
-        User user = userRepository.findByUsername(username);
+        Kayttaja user = userRepository.findByUsername(username);
 
         if (user == null) {
             throw new AuthenticationException("Unable to authenticate user " + username) {

@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import wad.domain.Image;
-import wad.domain.User;
+import wad.domain.Kayttaja;
 import wad.repository.ImageRepository;
 import wad.service.ImageService;
 import wad.service.UserService;
@@ -109,7 +109,7 @@ public class ImageController {
         }
         
 //        User user = currentUserProvider.getUser();
-        User user = null;
+        Kayttaja user = null;
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 //        if (authentication != null && authentication.isAuthenticated()) {
 //            user = (User) authentication.getPrincipal();
@@ -142,14 +142,14 @@ public class ImageController {
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public String deleteImage(@PathVariable Long id, RedirectAttributes redirectAttributes) {
         Image image = imageRepository.findOne(id);
-        User author = image.getAuthor();
-        User user = userService.getAuthenticatedUser();
+        Kayttaja author = image.getAuthor();
+        Kayttaja user = userService.getAuthenticatedUser();
         Role role = new Role("ADMIN");
         role.setName("ADMIN");
         if (user.getRoles().contains(role) || user == author) {
             commentService.deleteAllCommentsOnImage(id);
             List<Comment> emptyList1 = new ArrayList<>();
-            List<User> emptyList2 = new ArrayList<>();
+            List<Kayttaja> emptyList2 = new ArrayList<>();
             image.setComments(emptyList1);
             image.setLikes(emptyList2);
             imageRepository.delete(image);           

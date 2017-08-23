@@ -37,7 +37,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.multipart.MultipartFile;
 import wad.KuvapalveluApplication;
 import wad.domain.Image;
-import wad.domain.User;
+import wad.domain.Kayttaja;
 import wad.repository.ImageRepository;
 import wad.repository.UserRepository;
 
@@ -74,7 +74,7 @@ public class ImageServiceTest {
 
     @Before
     public void setUp() {
-        User TEST_USER = new User();
+        Kayttaja TEST_USER = new Kayttaja();
         TEST_USER.setName("testImageService");
         TEST_USER.setId(new Long(45745));
         TEST_USER.setPassword("testImageService");
@@ -82,7 +82,7 @@ public class ImageServiceTest {
         TEST_USER.setSlogan("testImageService!");
         userRepository.save(TEST_USER);
 
-        User user1 = userRepository.findByUsername("testImageService");
+        Kayttaja user1 = userRepository.findByUsername("testImageService");
         Authentication auth = new UsernamePasswordAuthenticationToken(user1.getUsername(), user1.getPassword());
         SecurityContextHolder.getContext().setAuthentication(auth);
 
@@ -119,7 +119,7 @@ public class ImageServiceTest {
 
     @Test
     public void getAllImagesFromUserWorks() {
-        User user1 = new User();
+        Kayttaja user1 = new Kayttaja();
         user1.setName("test1");
         user1.setId(new Long(1));
         user1.setSlogan("test1");
@@ -158,7 +158,7 @@ public class ImageServiceTest {
 
     @Test
     public void getLatestImagesFromUserWorks() {
-        User user = userRepository.findByUsername("admin");
+        Kayttaja user = userRepository.findByUsername("admin");
         Pageable page = new PageRequest(0, 5, Direction.DESC, "dateAdded");
         assertEquals(imageRepository.findByAuthor(user, page).getContent(), imageService.getLatestImagesFromUser(user, 5));
     }
@@ -174,20 +174,20 @@ public class ImageServiceTest {
 
     @Test
     public void canAddImage() throws IllegalArgumentException, IOException {
-        User TEST_USER = new User();
+        Kayttaja TEST_USER = new Kayttaja();
         TEST_USER.setName("Stitches");
         TEST_USER.setPassword("Stitches");
         TEST_USER.setUsername("Stitches");
         TEST_USER.setSlogan("Stitches wants to play!");
         userRepository.save(TEST_USER);
 
-        User user1 = userRepository.findByUsername("Stitches");
+        Kayttaja user1 = userRepository.findByUsername("Stitches");
 
         Authentication auth = new UsernamePasswordAuthenticationToken(user1.getUsername(), user1.getPassword());
         SecurityContextHolder.getContext().setAuthentication(auth);
 
         MultipartFile file = new MockMultipartFile("foo", "bar", "image/jpeg", new byte[10]);
-        User user = new User();
+        Kayttaja user = new Kayttaja();
 //        userRepository.save(user);
         Image image = imageService.add(file, "test", user, "test");
         assertTrue(imageRepository.findAll().contains(image));
@@ -196,7 +196,7 @@ public class ImageServiceTest {
 //    @Test
     public void LikingImageWorks() throws IllegalArgumentException, IOException {
         // Alustetaan käyttäjä
-        User TEST_USER = new User();
+        Kayttaja TEST_USER = new Kayttaja();
         TEST_USER.setName("testLike");
         TEST_USER.setId(new Long(4));
         TEST_USER.setPassword("testLike");
@@ -205,7 +205,7 @@ public class ImageServiceTest {
         userRepository.save(TEST_USER);
 
         //Asetetaan käyttäjä authentikoiduksi käyttäjäksi
-        User user1 = userRepository.findByUsername("testLike");
+        Kayttaja user1 = userRepository.findByUsername("testLike");
         Authentication auth = new UsernamePasswordAuthenticationToken(user1.getUsername(), user1.getPassword());
         SecurityContextHolder.getContext().setAuthentication(auth);
 

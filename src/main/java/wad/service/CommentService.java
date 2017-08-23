@@ -14,7 +14,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import wad.domain.Comment;
 import wad.domain.Image;
-import wad.domain.User;
+import wad.domain.Kayttaja;
 import wad.repository.CommentRepository;
 import wad.repository.ImageRepository;
 
@@ -53,7 +53,7 @@ public class CommentService {
      * @param max Number of comments wanted to return.
      * @return List of comments by given user, sorted by date.
      */
-    public List<Comment> getLatestCommentsFromUser(User user, int max) {
+    public List<Comment> getLatestCommentsFromUser(Kayttaja user, int max) {
         Pageable page = new PageRequest(0, max, Sort.Direction.DESC, "dateCreated");
         return commentRepository.findByAuthor(user, page).getContent();
     }
@@ -63,7 +63,7 @@ public class CommentService {
      * @param user Target user.
      * @return List of comments by given user, sorted by date.
      */
-    public List<Comment> getAllCommentsFromUser(User user) {
+    public List<Comment> getAllCommentsFromUser(Kayttaja user) {
         return commentRepository.findAllByAuthor(user);
     }
     
@@ -81,7 +81,7 @@ public class CommentService {
         if (image == null) {
             throw new NullPointerException("No image found by given id.");
         }
-        User user = userService.getAuthenticatedUser();
+        Kayttaja user = userService.getAuthenticatedUser();
         if (user == null) {
             throw new NullPointerException("You must login to post comments.");
         }

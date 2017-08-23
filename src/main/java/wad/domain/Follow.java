@@ -18,31 +18,31 @@ import org.springframework.data.jpa.domain.AbstractPersistable;
 public class Follow extends AbstractPersistable<Long> {
 
     @Lob
-    private User follower;
+    private Kayttaja follower;
     @Lob
-    private User whoToFollow;
+    private Kayttaja whoToFollow;
 
     public Follow() {
 
     }
-    public Follow(User follower, User whoToFollow){
+    public Follow(Kayttaja follower, Kayttaja whoToFollow){
         this.follower = follower;
         this.whoToFollow = whoToFollow;
     }
 
-    public User getFollower() {
+    public Kayttaja getFollower() {
         return this.follower;
     }
 
-    public void setFollower(User user) {
+    public void setFollower(Kayttaja user) {
         this.follower = user;
     }
 
-    public User getFollowed() {
+    public Kayttaja getFollowed() {
         return this.whoToFollow;
     }
 
-    public void setFollowed(User user) {
+    public void setFollowed(Kayttaja user) {
         this.whoToFollow = user;
     }
 }

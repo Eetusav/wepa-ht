@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import wad.domain.Comment;
 import wad.domain.Image;
-import wad.domain.User;
+import wad.domain.Kayttaja;
 import wad.repository.CommentRepository;
 import wad.repository.ImageRepository;
 import wad.repository.UserRepository;
@@ -48,9 +48,9 @@ public class UserController {
     private CommentRepository commentRepository;
 
     @RequestMapping(method = RequestMethod.POST)
-    public String create(@ModelAttribute User user) {
-        List<User> lista = userRepository.findAll();
-        for (User user1 : lista){
+    public String create(@ModelAttribute Kayttaja user) {
+        List<Kayttaja> lista = userRepository.findAll();
+        for (Kayttaja user1 : lista){
             if (user1.getUsername().equals(user.getUsername())){
                 return "redirect:/signup";
             }
@@ -61,7 +61,7 @@ public class UserController {
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public String getOne(@PathVariable Long id, RedirectAttributes redirectAttributes, Model model) {
-        User user = userRepository.findOne(id);
+        Kayttaja user = userRepository.findOne(id);
         if (user == null) {
             redirectAttributes.addFlashAttribute("error", "Couln't find an user by that id.");
             return "redirect:/";

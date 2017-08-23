@@ -29,7 +29,7 @@ public class Comment extends AbstractPersistable<Long> {
     @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     private Date dateCreated;
     @ManyToOne
-    private User author;
+    private Kayttaja author;
     @ManyToOne
     private Image image;
 
@@ -50,10 +50,10 @@ public class Comment extends AbstractPersistable<Long> {
     public void setDateCreated(Date date){
         this.dateCreated = date;
     }
-    public User getAuthor(){
+    public Kayttaja getAuthor(){
         return this.author;
     }
-    public void setAuthor(User user){
+    public void setAuthor(Kayttaja user){
         this.author = user;
     }
     public Image getImage(){
