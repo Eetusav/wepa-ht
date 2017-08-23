@@ -7,8 +7,11 @@ package wad.domain;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
+import java.util.TreeSet;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -18,21 +21,26 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import org.hibernate.validator.constraints.NotBlank;
+import org.springframework.data.jpa.domain.AbstractPersistable;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 
 /**
  *
  * @author Matti
  */
+@SuppressWarnings("serial")
 @Entity
 @Table(name = "registered_user")
-public class User implements Serializable {
+public class User extends AbstractPersistable<Long> implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE)
     private Long id;
-    
+
     @NotBlank
     private String name;
 
@@ -45,34 +53,39 @@ public class User implements Serializable {
     private String salt;
     @OneToMany(mappedBy = "author", fetch = FetchType.LAZY)
     private List<Image> images = new ArrayList<>();
-    
+
 //    @ManyToMany(fetch = FetchType.LAZY)
 //    private List<Image> likedPictures = new ArrayList<>();
-    
     @NotBlank
     private String slogan;
-    
+
     @OneToMany(mappedBy = "name", fetch = FetchType.LAZY)
     private List<Role> roles = new ArrayList<>();
-    
-    public List<Role> getRoles(){
+    @Transient
+    private Set<SimpleGrantedAuthority> authorities
+            = new TreeSet<SimpleGrantedAuthority>();
+
+    public List<Role> getRoles() {
         return this.roles;
     }
-    public void setRoles(List<Role> roles){
+
+    public void setRoles(List<Role> roles) {
         this.roles = roles;
     }
-    
-    public String getSlogan(){
+
+    public String getSlogan() {
         return this.slogan;
     }
-    public void setSlogan(String slogan){
+
+    public void setSlogan(String slogan) {
         this.slogan = slogan;
     }
-    
-    public String getName(){
+
+    public String getName() {
         return this.name;
     }
-    public void setName(String name){
+
+    public void setName(String name) {
         this.name = name;
     }
 
@@ -108,10 +121,12 @@ public class User implements Serializable {
     public void setSalt(String salt) {
         this.salt = salt;
     }
-    public List<Image> getImages(){
+
+    public List<Image> getImages() {
         return this.images;
     }
-    public void setImages(List<Image> lista){
+
+    public void setImages(List<Image> lista) {
         this.images = lista;
     }
 
@@ -122,6 +137,33 @@ public class User implements Serializable {
 //    public void setLikedImages(List<Image> likedPictures) {
 //        this.likedPictures = likedPictures;
 //    }
-    
+    // Return true for now
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    // Return true for now
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    // Return true for now
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    // Return true for now
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
+
+    @Override
+    public Collection<SimpleGrantedAuthority> getAuthorities() {
+        return authorities;
+    }
 
 }
