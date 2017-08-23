@@ -145,4 +145,23 @@
             </plugin>
         </plugins>
     </build>
+    <profiles>
+        <profile>
+            <!--  disables the default profile, dropping H2 dependency -->
+            <id>heroku</id>
+            <activation>
+                <property>
+                    <name>env.DYNO</name>
+                </property>
+            </activation>
+            <dependencies>
+                <dependency>
+                    <groupId>org.postgresql</groupId>
+                    <artifactId>postgresql</artifactId>
+                    <version>9.3-1102-jdbc41</version>
+                    <scope>runtime</scope>
+                </dependency>
+            </dependencies>
+        </profile>
+    </profiles>
 </project>
