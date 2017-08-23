@@ -62,7 +62,7 @@ public class UserServiceTest {
     public void setUp() {
 Kayttaja TEST_USER = new Kayttaja();
         TEST_USER.setName("testAuthentication");
-        TEST_USER.setId(new Long(3253253));
+//        TEST_USER.setId(new Long(3253253));
         TEST_USER.setPassword("testAuthentication");
         TEST_USER.setUsername("testAuthentication");
         TEST_USER.setSlogan("testAuthentication!");
@@ -105,14 +105,14 @@ Kayttaja TEST_USER = new Kayttaja();
     public void comparingUsersWork() {
         Kayttaja user1 = new Kayttaja();
         user1.setName("test1");
-        user1.setId(new Long(437569));
+//        user1.setId(new Long(437569));
         user1.setSlogan("test1");
         user1.setUsername("test1");
         user1.setPassword("test1");
 
         Kayttaja user2 = new Kayttaja();
         user2.setName("test2");
-        user2.setId(new Long(123));
+//        user2.setId(new Long(123));
         user2.setSlogan("test2");
         user2.setUsername("test2");
         user2.setPassword("test2");

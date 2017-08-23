@@ -89,7 +89,7 @@ public class CommentServiceTest {
     public void getLatestCommentsOnImageWorks() {
         TEST_USER = new Kayttaja();
         TEST_USER.setName("testComments");
-        TEST_USER.setId(new Long(432643646));
+//        TEST_USER.setId(new Long(432643646));
         TEST_USER.setPassword("testComments");
         TEST_USER.setUsername("testComments");
         TEST_USER.setSlogan("testComments!");
@@ -116,7 +116,7 @@ public class CommentServiceTest {
         Kayttaja user = new Kayttaja();
         user.setUsername("testingComments");
         user.setPassword("testingComments");
-        user.setId(new Long(382475682));
+//        user.setId(new Long(382475682));
         user.setName("testingComments");
         user.setSlogan("testingComments");
         userRepository.save(user);
@@ -175,7 +175,7 @@ public class CommentServiceTest {
         Kayttaja user = new Kayttaja();
         user.setUsername("ApinaTestaaKommentteja");
         user.setPassword("ApinaTestaaKommentteja");
-        user.setId(new Long(34262436));
+//        user.setId(new Long(34262436));
         user.setName("ApinaTestaaKommentteja");
         user.setSlogan("ApinaTestaaKommentteja");
         userRepository.save(user);

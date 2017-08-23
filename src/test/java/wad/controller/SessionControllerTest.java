@@ -70,7 +70,7 @@ public class SessionControllerTest {
     public void setUp() {
         Kayttaja TEST_USER = new Kayttaja();
         TEST_USER.setName("testSessionController");
-        TEST_USER.setId(new Long(46469201));
+//        TEST_USER.setId(new Long(46469201));
         TEST_USER.setPassword("testSessionController");
         TEST_USER.setUsername("testSessionController");
         TEST_USER.setSlogan("testSessionController!");

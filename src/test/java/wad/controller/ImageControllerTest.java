@@ -87,7 +87,7 @@ public class ImageControllerTest {
     public void setUp() {
         Kayttaja TEST_USER = new Kayttaja();
         TEST_USER.setName("testImageController");
-        TEST_USER.setId(new Long(999435));
+//        TEST_USER.setId(new Long(999435));
         TEST_USER.setPassword("testImageController");
         TEST_USER.setUsername("testImageController");
         TEST_USER.setSlogan("testImageController!");

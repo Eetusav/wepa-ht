@@ -55,7 +55,7 @@ public class UserService {
      * @return true if the users are equal.
      */
     public boolean compareUsers(Kayttaja user1, Kayttaja user2) {
-        return Objects.equals(user1.getId(), user2.getId());
+        return Objects.equals(user1.getUsername(), user2.getUsername());
     }
 
     /**

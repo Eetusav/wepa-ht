@@ -76,7 +76,7 @@ public class ImageServiceTest {
     public void setUp() {
         Kayttaja TEST_USER = new Kayttaja();
         TEST_USER.setName("testImageService");
-        TEST_USER.setId(new Long(45745));
+//        TEST_USER.setId(new Long(45745));
         TEST_USER.setPassword("testImageService");
         TEST_USER.setUsername("testImageService");
         TEST_USER.setSlogan("testImageService!");
@@ -121,7 +121,7 @@ public class ImageServiceTest {
     public void getAllImagesFromUserWorks() {
         Kayttaja user1 = new Kayttaja();
         user1.setName("test1");
-        user1.setId(new Long(1));
+//        user1.setId(new Long(1));
         user1.setSlogan("test1");
         user1.setUsername("test1");
         user1.setPassword("test1");
@@ -198,7 +198,7 @@ public class ImageServiceTest {
         // Alustetaan käyttäjä
         Kayttaja TEST_USER = new Kayttaja();
         TEST_USER.setName("testLike");
-        TEST_USER.setId(new Long(4));
+//        TEST_USER.setId(new Long(4));
         TEST_USER.setPassword("testLike");
         TEST_USER.setUsername("testLike");
         TEST_USER.setSlogan("testLike!");

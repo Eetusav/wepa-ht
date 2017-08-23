@@ -66,7 +66,7 @@ public class FollowServiceTest {
     public void setUp() {
         Kayttaja TEST_USER = new Kayttaja();
         TEST_USER.setName("testFollowService");
-        TEST_USER.setId(new Long(563563456));
+//        TEST_USER.setId(new Long(563563456));
         TEST_USER.setPassword("testFollowService");
         TEST_USER.setUsername("testFollowService");
         TEST_USER.setSlogan("testFollowService!");
