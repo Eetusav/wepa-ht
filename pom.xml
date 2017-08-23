@@ -145,9 +145,9 @@
             </plugin>
         </plugins>
     </build>
-    <profiles>
+    <!-- profiles>
         <profile>
-            <!--  disables the default profile, dropping H2 dependency -->
+            
             <id>heroku</id>
             <activation>
                 <property>
@@ -163,5 +163,5 @@
                 </dependency>
             </dependencies>
         </profile>
-    </profiles>
+    </profiles-->
 </project>
