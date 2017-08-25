@@ -10,7 +10,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import wad.domain.Follow;
-import wad.domain.Kayttaja;
+import wad.domain.User;
 import wad.repository.FollowRepository;
 
 /**
@@ -28,10 +28,10 @@ public class FollowService {
      * 
      * @return List of users that the current user follows.
      */
-    public List<Kayttaja> getAllFollowedUsers() {
-        Kayttaja follower = userService.getAuthenticatedUser();
+    public List<User> getAllFollowedUsers() {
+        User follower = userService.getAuthenticatedUser();
         List<Follow> follows = followRepository.findAllByFollower(follower);
-        List<Kayttaja> palautettava = new ArrayList<>();
+        List<User> palautettava = new ArrayList<>();
 
         for (Follow follow : follows) {
             palautettava.add(follow.getFollowed());

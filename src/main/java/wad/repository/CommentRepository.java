@@ -11,7 +11,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import wad.domain.Comment;
 import wad.domain.Image;
-import wad.domain.Kayttaja;
+import wad.domain.User;
 
 /**
  *
@@ -20,7 +20,7 @@ import wad.domain.Kayttaja;
 public interface CommentRepository extends JpaRepository<Comment, Long> {
     
     public Page<Comment> findByImage(Image image, Pageable pageable);
-    public List<Comment> findAllByAuthor(Kayttaja author);
-    public Page<Comment> findByAuthor(Kayttaja author, Pageable pageable);
+    public List<Comment> findAllByAuthor(User author);
+    public Page<Comment> findByAuthor(User author, Pageable pageable);
     
 }

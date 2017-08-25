@@ -8,7 +8,7 @@ package wad.repository;
 import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import wad.domain.Follow;
-import wad.domain.Kayttaja;
+import wad.domain.User;
 
 /**
  *
@@ -16,5 +16,5 @@ import wad.domain.Kayttaja;
  */
 public interface FollowRepository extends JpaRepository<Follow, Long> {
     
-    List<Follow> findAllByFollower(Kayttaja follower);
+    List<Follow> findAllByFollower(User follower);
 }

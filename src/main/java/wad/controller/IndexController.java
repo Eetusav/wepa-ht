@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import wad.domain.Image;
-import wad.domain.Kayttaja;
+import wad.domain.User;
 import wad.repository.ImageRepository;
 import wad.repository.UserRepository;
 import wad.service.ImageService;

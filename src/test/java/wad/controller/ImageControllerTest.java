@@ -36,7 +36,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import wad.KuvapalveluApplication;
 import wad.domain.Comment;
 import wad.domain.Image;
-import wad.domain.Kayttaja;
+import wad.domain.User;
 import wad.repository.CommentRepository;
 import wad.repository.ImageRepository;
 import wad.repository.UserRepository;
@@ -85,7 +85,7 @@ public class ImageControllerTest {
 
     @Before
     public void setUp() {
-        Kayttaja TEST_USER = new Kayttaja();
+        User TEST_USER = new User();
         TEST_USER.setName("testImageController");
 //        TEST_USER.setId(new Long(999435));
         TEST_USER.setPassword("testImageController");
@@ -93,7 +93,7 @@ public class ImageControllerTest {
         TEST_USER.setSlogan("testImageController!");
         userRepository.save(TEST_USER);
 
-        Kayttaja user1 = userRepository.findByUsername("testImageController");
+        User user1 = userRepository.findByUsername("testImageController");
 
         Authentication auth = new UsernamePasswordAuthenticationToken(user1.getUsername(), user1.getPassword());
         SecurityContextHolder.getContext().setAuthentication(auth);
@@ -128,7 +128,7 @@ public class ImageControllerTest {
 
     @Test
     public void canAddImages() throws Exception {
-        Kayttaja testUser = userRepository.findByUsername("testImageController");
+        User testUser = userRepository.findByUsername("testImageController");
 
         MockHttpSession session = new MockHttpSession();
         session.setAttribute(
@@ -157,7 +157,7 @@ public class ImageControllerTest {
 
 //    @Test
     public void canPostComments() throws Exception {
-        Kayttaja testUser = userRepository.findByUsername("testImageController");
+        User testUser = userRepository.findByUsername("testImageController");
 
         MockHttpSession session = new MockHttpSession();
         session.setAttribute(
@@ -184,7 +184,7 @@ public class ImageControllerTest {
 
     @Test
     public void canDeleteImages() throws Exception {
-        Kayttaja testUser = userRepository.findByUsername("testImageController");
+        User testUser = userRepository.findByUsername("testImageController");
 
         MockHttpSession session = new MockHttpSession();
         session.setAttribute(

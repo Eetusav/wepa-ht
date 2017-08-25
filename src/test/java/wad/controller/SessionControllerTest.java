@@ -31,7 +31,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.context.WebApplicationContext;
 import wad.KuvapalveluApplication;
 import wad.controller.SessionController;
-import wad.domain.Kayttaja;
+import wad.domain.User;
 import wad.repository.UserRepository;
 import wad.service.UserService;
 
@@ -68,7 +68,7 @@ public class SessionControllerTest {
 
     @Before
     public void setUp() {
-        Kayttaja TEST_USER = new Kayttaja();
+        User TEST_USER = new User();
         TEST_USER.setName("testSessionController");
 //        TEST_USER.setId(new Long(46469201));
         TEST_USER.setPassword("testSessionController");
@@ -76,7 +76,7 @@ public class SessionControllerTest {
         TEST_USER.setSlogan("testSessionController!");
         userRepository.save(TEST_USER);
 
-        Kayttaja user1 = userRepository.findByUsername("testSessionController");
+        User user1 = userRepository.findByUsername("testSessionController");
 
         Authentication auth = new UsernamePasswordAuthenticationToken(user1.getUsername(), user1.getPassword());
         SecurityContextHolder.getContext().setAuthentication(auth);
@@ -113,13 +113,13 @@ public class SessionControllerTest {
         Model model = null;
         assertEquals("redirect:/", sC.getLogout(httpSession, model));
 
-        Kayttaja TEST_USER = new Kayttaja();
+        User TEST_USER = new User();
         TEST_USER.setName("Stitches");
         TEST_USER.setPassword("Stitches");
         TEST_USER.setUsername("Stitches");
         TEST_USER.setSlogan("Stitches wants to play!");
         userRepository.save(TEST_USER);
-        Kayttaja user1 = userRepository.findByUsername("Stitches");
+        User user1 = userRepository.findByUsername("Stitches");
         Authentication auth = new UsernamePasswordAuthenticationToken(user1.getUsername(), user1.getPassword());
         SecurityContextHolder.getContext().setAuthentication(auth);
         assertNotNull(SecurityContextHolder.getContext().getAuthentication());

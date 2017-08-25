@@ -10,7 +10,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
-import wad.domain.Kayttaja;
+import wad.domain.User;
 
 /**
  *
@@ -20,15 +20,15 @@ import wad.domain.Kayttaja;
 public class CurrentUserProvider {
 
     public Long getUserId() {
-        Kayttaja user = getUser();
+        User user = getUser();
         return (user != null ? user.getId() : null);
     }
 
-    public Kayttaja getUser() {
-        Kayttaja user = null;
+    public User getUser() {
+        User user = null;
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication != null && authentication.isAuthenticated()) {
-            user = (Kayttaja) authentication.getPrincipal();
+            user = (User) authentication.getPrincipal();
         }
         return user;
     }

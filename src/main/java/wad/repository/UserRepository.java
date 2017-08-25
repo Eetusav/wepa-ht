@@ -6,14 +6,14 @@
 package wad.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import wad.domain.Kayttaja;
+import wad.domain.User;
 
 /**
  *
  * @author Matti
  */
-public interface UserRepository extends JpaRepository<Kayttaja, Long> {
+public interface UserRepository extends JpaRepository<User, Long> {
     
-    Kayttaja findByUsername(String username);
+    User findByUsername(String username);
 
 }
