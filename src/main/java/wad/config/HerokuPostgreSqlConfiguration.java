@@ -38,10 +38,8 @@ public class HerokuPostgreSqlConfiguration {
         PoolProperties pp = new PoolProperties();
         pp.setDriverClassName(POSTGRESQL_DRIVER_CLASS);
         pp.setInitialSize(1);
-//        pp.setPassword(password);
-//        pp.setUsername(username);
-        pp.setPassword("admin");
-        pp.setUsername("admin");
+        pp.setPassword(password);
+        pp.setUsername(username);
         pp.setUrl(dbUrl);
         org.apache.tomcat.jdbc.pool.DataSource dataSource = new org.apache.tomcat.jdbc.pool.DataSource(pp);
 
