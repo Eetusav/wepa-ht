@@ -33,7 +33,7 @@ import org.springframework.security.crypto.bcrypt.BCrypt;
  * @author Matti
  */
 @Entity
-@Table(name = "registered_user")
+//@Table(name = "registered_user")
 public class User extends AbstractPersistable<Long> implements UserDetails {
 
 //    @Id
