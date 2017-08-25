@@ -36,20 +36,20 @@ public class HerokuPostgreSqlConfiguration {
         String password = dbUri.getUserInfo().split(":")[1];
         String dbUrl = HEROKU_POSTGRE_URL_PREFIX + dbUri.getHost() + ':' + dbUri.getPort() + dbUri.getPath();
 
-//        PoolProperties pp = new PoolProperties();
-//        pp.setDriverClassName(POSTGRESQL_DRIVER_CLASS);
-//        pp.setInitialSize(1);
-//        pp.setPassword(password);
-//        pp.setUsername(username);
-//        pp.setUrl(dbUrl);
-//        org.apache.tomcat.jdbc.pool.DataSource dataSource = new org.apache.tomcat.jdbc.pool.DataSource(pp);
-//
-//        return dataSource;
-        BasicDataSource basicDataSource = new BasicDataSource();
-        basicDataSource.setUrl(dbUrl);
-        basicDataSource.setUsername(username);
-        basicDataSource.setPassword(password);
+        PoolProperties pp = new PoolProperties();
+        pp.setDriverClassName(POSTGRESQL_DRIVER_CLASS);
+        pp.setInitialSize(1);
+        pp.setPassword(password);
+        pp.setUsername(username);
+        pp.setUrl(dbUrl);
+        org.apache.tomcat.jdbc.pool.DataSource dataSource = new org.apache.tomcat.jdbc.pool.DataSource(pp);
 
-        return basicDataSource;
+        return dataSource;
+//        BasicDataSource basicDataSource = new BasicDataSource();
+//        basicDataSource.setUrl(dbUrl);
+//        basicDataSource.setUsername(username);
+//        basicDataSource.setPassword(password);
+//
+//        return basicDataSource;
     }
 }
