@@ -63,26 +63,28 @@ public class UserService {
      */
 //    @PostConstruct
 //    public void init() {
-//        Role admin = new Role("ADMIN");
-//        List<Role> roles = new ArrayList<>();
-//        roles.add(admin);
-//
-//        User stitches = new User();
-//        stitches.setId(new Long(1));
-//        stitches.setName("Stitches, Terror of Darkshire");
-//        stitches.setSlogan("Not fat! Big boned!.  Me got more guts than anyone!");
-//        stitches.setPassword("admin");
-//        stitches.setUsername("admin");
-//        stitches.setRoles(roles);
-//        uR.save(stitches);
-//
-//        User diablo = new User();
-//        diablo.setName("Al'Diabalos, the Lord of Terror");
-//        diablo.setSlogan("Terror comes in many forms. A child. A warrior. Even...a friend.");
-//        diablo.setPassword("user1");
-//        diablo.setUsername("user1");
-//        uR.save(diablo);
-//
+//        
+//        
+////        Role admin = new Role("ADMIN");
+////        List<Role> roles = new ArrayList<>();
+////        roles.add(admin);
+////
+////        User stitches = new User();
+////        stitches.setId(new Long(1));
+////        stitches.setName("Stitches, Terror of Darkshire");
+////        stitches.setSlogan("Not fat! Big boned!.  Me got more guts than anyone!");
+////        stitches.setPassword("admin");
+////        stitches.setUsername("admin");
+////        stitches.setRoles(roles);
+////        uR.save(stitches);
+////
+////        User diablo = new User();
+////        diablo.setName("Al'Diabalos, the Lord of Terror");
+////        diablo.setSlogan("Terror comes in many forms. A child. A warrior. Even...a friend.");
+////        diablo.setPassword("user1");
+////        diablo.setUsername("user1");
+////        uR.save(diablo);
+////
 //    }
 
 }
