@@ -39,15 +39,7 @@ public class User extends AbstractPersistable<Long> implements UserDetails {
 //    @Id
 //    @GeneratedValue(strategy = GenerationType.TABLE)
 //    private Long id;
-    private Long id;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID")
-    @Override
-    public Long getId() {
-        return id;
-    }
 
     @NotBlank
     private String name;
